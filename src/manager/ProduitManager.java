@@ -53,4 +53,12 @@ public class ProduitManager {
 	public void suppressionJournalProduit(Integer id){
 		produitDao.suppressionJournalProduit(id);
 	}
+	
+	public List<Produit> listerProduitsFiltre (String filtre){
+		return produitDao.listerProduitFiltre(filtre);
+	} 
+	
+	public List<ModificationProduit> listerModifFiltre(String filtre){
+		return produitDao.listerModificationFiltre(filtre);
+	}
 }

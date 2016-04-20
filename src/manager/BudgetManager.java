@@ -36,4 +36,7 @@ public class BudgetManager {
 		budgetDao.suppressionBudget(id);
 	}
 
+	public List<Budget> listerBudgetFiltre (String filtre){
+		return budgetDao.listerBudgetFiltre(filtre);
+	}
 }

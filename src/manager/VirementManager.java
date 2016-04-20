@@ -43,4 +43,8 @@ public class VirementManager {
 	public List<Virement> listerParEvent(Integer idE){
 		return virementDao.listerParEvent(idE);
 	}
+	
+	public List<Virement> journalVirementFiltre(String filtre){
+		return virementDao.journalVirementFiltre(filtre);
+	}
 }

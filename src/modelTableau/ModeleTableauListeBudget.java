@@ -61,6 +61,14 @@ public class ModeleTableauListeBudget extends AbstractTableModel{
         fireTableRowsDeleted(rowIndex, rowIndex);
     }
 
+	public void clear(){
+    	int size = listeBudget.size();
+    	for(int i=0; i<size; i++){
+    		listeBudget.remove(0);
+            fireTableRowsDeleted(0, 0);
+    	}
+    }
+	
 	public BudgetManager getBudgetManager() {
 		return budgetManager;
 	}

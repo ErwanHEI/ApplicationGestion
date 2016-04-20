@@ -13,5 +13,5 @@ public interface VirementDao {
 	public void suppressionVirement(Integer id);
 	public void suppressionJournalBudget(Integer id);
 	public List<Virement> listerParEvent(Integer idE);
-
+	public List<Virement> journalVirementFiltre(String filtre);
 }

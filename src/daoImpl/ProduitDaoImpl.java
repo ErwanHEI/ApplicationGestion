@@ -104,7 +104,64 @@ public class ProduitDaoImpl implements ProduitDao{
 		
 	}
 	
-	
+	@Override
+	public List<Produit> listerProduitFiltre(String filtre) {
+		bdd.connect();
+		List<Produit> listeProduit = new ArrayList<Produit>();
+		String tri="";
+		if(filtre=="Catégorie : Ordre alphabétique"){tri="categorie asc";}
+		else if (filtre=="Catégorie : Ordre alphabétique inverse"){tri="categorie desc";}
+		else if (filtre=="Nom : Ordre alphabétique"){tri="nomProduit asc";}
+		else if (filtre=="Nom : Ordre alphabétique inverse"){tri="nomProduit desc";}
+		else if (filtre=="Prix : Ordre croissant"){tri="prixU asc";}
+		else if (filtre=="Prix : Ordre décroissant"){tri="prixU desc";}
+		else if (filtre=="Quantité : Ordre croissant"){tri="quantite asc";}
+		else if (filtre=="Quantité : Ordre décroissant"){tri="quantite desc";}
+		/*else if (filtre=="Lieu de stockage : Ordre alphabétique"){tri="categorie desc";}
+		else if (filtre=="Lieu de stockage : Ordre alphabétique inverse"){tri="categorie desc";}*/
+		
+		try {
+			Statement stm = bdd.getConnection().createStatement();
+			String rqt="SELECT * FROM produit JOIN stockage ON produit.idStockage=stockage.idStockage ORDER BY "+tri;
+			ResultSet res=stm.executeQuery(rqt);
+			while (res.next()){
+				String name=res.getString("nomProduit");
+				Integer idProduit=res.getInt("idProduit");
+				String categorie=res.getString("categorie");
+				Integer quantite=res.getInt("quantite");
+				Double prixU=res.getDouble("prixU");
+				Integer idFournisseur=res.getInt("idFournisseur");
+				Integer idCreateur=res.getInt("idUser");
+				
+				Integer idStockage=res.getInt("idStockage");
+				String localisation=res.getString("localisation");
+				String nomStockage=res.getString("nomStockage");
+				Integer remplissage=res.getInt("remplissage");
+				Stockage stockage=new Stockage(idStockage,localisation,nomStockage,remplissage);
+				
+				PreparedStatement stmt = bdd.getConnection().prepareStatement("SELECT * FROM fournisseur WHERE idFournisseur=?");
+				stmt.setInt(1, idFournisseur);
+				ResultSet res1=stmt.executeQuery();
+				String nomF=res1.getString("nomFournisseur");
+				String adresse=res1.getString("adresse");
+				Fournisseur fournisseur=new Fournisseur(idFournisseur,nomF,adresse);
+				
+				PreparedStatement stmt1 = bdd.getConnection().prepareStatement("SELECT * FROM user WHERE idUser=?");
+				stmt1.setInt(1, 3);
+				ResultSet res2=stmt1.executeQuery();
+				User createur=map(res2);
+				
+				
+				Produit produit=new Produit(idProduit,name, categorie,prixU, quantite,stockage,fournisseur,null);
+				listeProduit.add(produit);
+			}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bdd.close();
+		return listeProduit;
+	}
 
 	private static User map(ResultSet resultSet) throws SQLException {
 
@@ -262,7 +319,35 @@ public class ProduitDaoImpl implements ProduitDao{
 		
 	}
 
-
+	@Override
+		public List<ModificationProduit> listerModificationFiltre(String filtre) {
+			bdd.connect();
+			List<ModificationProduit> listeModif = new ArrayList<ModificationProduit>();
+			String tri="";
+			if(filtre=="Quantité : Ordre croissant"){tri="quantite asc";}
+			else if (filtre=="Quantité : Ordre décroissant"){tri="quantite desc";}
+			try {
+				Statement stm = bdd.getConnection().createStatement();
+				String rqt="SELECT * FROM modificationProduit ORDER BY "+tri;
+				ResultSet res=stm.executeQuery(rqt);
+				while (res.next()){
+					Integer idModif=res.getInt("idModif");				
+					String nomP=res.getString("produit");
+					String nouveauStockage=res.getString("stockage");
+					Integer nouvelleQu=res.getInt("quantite");
+					Double nouveauprixU=res.getDouble("prix");
+					String createur=res.getString("utilisateur");
+					
+				ModificationProduit modif=new ModificationProduit(idModif,nouveauprixU,nouvelleQu,nomP,nouveauStockage,createur);
+				listeModif.add(modif);
+				}	
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			bdd.close();
+			return listeModif;
+		}
 
 	@Override
 	public void suppressionProduit(Integer id) {
