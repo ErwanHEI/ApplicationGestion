@@ -42,13 +42,9 @@ public class Virement {
 	}
 
 
-
-
 	public void setRef(String ref) {
 		this.ref = ref;
 	}
-
-
 
 
 	public User getCreateur() {
