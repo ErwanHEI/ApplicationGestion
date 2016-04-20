@@ -141,6 +141,57 @@ public class VirementDaoImpl implements VirementDao{
 	}
 
 	@Override
+	public List<Virement> journalVirementFiltre(String filtre) {
+		bdd.connect();
+		List<Virement> listeVirementFiltre = new ArrayList<Virement>();
+		String tri="";
+		if(filtre=="Référence : Ordre alphabétique"){tri="ref asc";}
+		else if (filtre=="Référence : Ordre alphabétique inverse"){tri="ref desc";}
+		try {
+			Statement stm = bdd.getConnection().createStatement();
+			String rqt="SELECT * FROM virement JOIN user ON virement.idUser=user.idUser ORDER BY "+tri;
+			ResultSet res=stm.executeQuery(rqt);
+			while (res.next()){
+				Double montant=res.getDouble("montant");
+				Integer idVirement=res.getInt("idVirement");
+				String ref=res.getString("ref");
+				String emetteur=res.getString("emetteur");
+				String recepteur=res.getString("recepteur");
+				String dateVirement=res.getString("dateVirement");
+				Integer idB=res.getInt("idBudget");
+				//Boolean encaisse=res.getBoolean("encaisse");
+				
+				PreparedStatement stmt = bdd.getConnection().prepareStatement("SELECT * FROM budget WHERE idBudget=?");
+				stmt.setInt(1, idB);
+				ResultSet res1=stmt.executeQuery();
+				
+				
+				String nomB=res1.getString("nomBudget");
+				Double montantP=res1.getDouble("montantPrevu");
+				Double montantU=res1.getDouble("montantUtilise");
+				String refB=res1.getString("refB");
+				Budget budget=new Budget(idB,refB,nomB,montantP,montantU,null);
+				
+				
+				User createur=new User();
+				createur.setIdUser(res.getInt("idUser"));
+				createur.setEmail(res.getString("email"));
+				createur.setMdp(res.getString("mdp"));
+				createur.setNom(res.getString("nomUser"));
+				createur.setTypeUser(res.getInt("type"));
+				
+				Virement virement=new Virement(idVirement,ref,montant, emetteur,recepteur,dateVirement,false,budget,createur);
+				listeVirementFiltre.add(virement);
+			}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bdd.close();
+		return listeVirementFiltre;
+	}
+	
+	@Override
 	public void passerEncaissement(Integer idVirement) {
 		
 		bdd.connect();

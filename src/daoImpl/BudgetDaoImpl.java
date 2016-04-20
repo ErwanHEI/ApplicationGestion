@@ -84,6 +84,47 @@ public class BudgetDaoImpl implements BudgetDao {
 	}
 
 	@Override
+	public List<Budget> listerBudgetFiltre(String filtre) {
+		bdd.connect();
+		List<Budget> listeBudget = new ArrayList<Budget>();
+		String tri="";
+		if(filtre=="Référence : Ordre alphabétique"){tri="refB asc";}
+		else if (filtre=="Référence : Ordre alphabétique inverse"){tri="refB desc";}
+		else if (filtre=="Nom : Ordre alphabétique"){tri="nomBudget asc";}
+		else if (filtre=="Nom : Ordre alphabétique inverse"){tri="nomBudget desc";}
+		else if (filtre=="Budget fixé : Ordre croissant"){tri="montantPrevu asc";}
+		else if (filtre=="Budget fixé : Ordre décroissant"){tri="montantPrevu desc";}
+		try {
+			Statement stm = bdd.getConnection().createStatement();
+			String rqt="SELECT * FROM budget JOIN user ON budget.idUser=user.idUser ORDER BY "+tri;
+			ResultSet res=stm.executeQuery(rqt);
+			while (res.next()){
+				Integer idB=res.getInt("idBudget");
+				String nomB=res.getString("nomBudget");
+				Double montantP=res.getDouble("montantPrevu");
+				Double montantU=res.getDouble("montantUtilise");
+				String refB=res.getString("refB");
+				
+				
+				User createur=new User();
+				createur.setIdUser(res.getInt("idUser"));
+				createur.setEmail(res.getString("email"));
+				createur.setMdp(res.getString("mdp"));
+				createur.setNom(res.getString("nomUser"));
+				createur.setTypeUser(res.getInt("type"));
+				
+				Budget budget=new Budget(idB,refB,nomB,montantP,montantU,createur);
+				listeBudget.add(budget);
+			}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bdd.close();
+		return listeBudget;
+	}
+	
+	@Override
 	public void majMontant(Virement virement, Integer id) {
 		bdd.connect();
 		if(virement.getEmetteur().equals("BDE")){

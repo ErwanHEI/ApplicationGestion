@@ -11,4 +11,5 @@ public interface BudgetDao {
 	public List<Budget> listerBudget();
 	public void majMontant(Virement virement, Integer id);
 	public void suppressionBudget(Integer id);
+	public List<Budget> listerBudgetFiltre(String filtre);
 }

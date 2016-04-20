@@ -63,7 +63,13 @@ public class ModeleTableauListeProduit extends AbstractTableModel {
         fireTableRowsDeleted(rowIndex, rowIndex);
     }
     
-    
+    public void clear(){
+    	int size = listeProduit.size();
+    	for(int i=0; i<size; i++){
+    		listeProduit.remove(0);
+            fireTableRowsDeleted(0, 0);
+    	}
+    }
     
     
 
