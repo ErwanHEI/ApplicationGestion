@@ -1,40 +1,21 @@
 package view;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import java.awt.Color;
-import javax.swing.JProgressBar;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JTabbedPane;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import java.awt.GridLayout;
-import java.util.List;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
-import javax.swing.JScrollPane;
-import javax.swing.BoxLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.ListSelectionModel;
-import java.awt.Component;
-import javax.swing.table.TableModel;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
 
-import controler.ControlerAjoutStockage;
-import controler.ControleurAjoutProduit;
-import entitie.Fournisseur;
-import entitie.Produit;
-import entitie.Stockage;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
 import modelCombo.ComboBoxDynamiqueFournisseur;
 import modelCombo.ComboxBoxDynamiqueModifierProduit;
 import modelCombo.ComboxBoxDynamiqueStockage;
@@ -44,9 +25,8 @@ import modelTableau.ModeleTableauJournalProduit;
 import modelTableau.ModeleTableauLieuStockage;
 import modelTableau.ModeleTableauListeProduit;
 
-public class PanelProduit extends JPanel{
+public class TestPanelProduit extends JFrame {
 
-	
 	private JLabel labelErreurAjoutProduit;
 
 	private JTextField champRecherche;
@@ -86,23 +66,31 @@ public class PanelProduit extends JPanel{
 	private JButton boutonModifierProduit;
 	private JPanel panelLieuStockage ;
 	private JButton boutonAjouterLieu ;
-	
-	
 
-	
-	public PanelProduit() {
-		initialize();
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TestPanelProduit frame = new TestPanelProduit();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Create the frame.
 	 */
-	private void initialize() {
-		
+	public TestPanelProduit() {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 16, 1002, 662);
-		this.setLayout(new BorderLayout());
-		this.add(tabbedPane,BorderLayout.CENTER);
+		getContentPane().setLayout(new BorderLayout());
+		getContentPane().add(tabbedPane,BorderLayout.CENTER);
 		
 		JPanel ongletProduit = new JPanel();
 		tabbedPane.addTab("Produit", null, ongletProduit, null);
@@ -128,7 +116,7 @@ public class PanelProduit extends JPanel{
 		ongletProduit.add(filtres);
 		
 		JComboBox comboBoxFiltres = new JComboBox();
-		comboBoxFiltres = filtreProduit.FiltreProduit(modeleListeProduit);
+		//comboBoxFiltres = filtreProduit.FiltreProduit(modeleListeProduit);
 		comboBoxFiltres.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		comboBoxFiltres.setBounds(331, 105, 300, 26);
 		ongletProduit.add(comboBoxFiltres);
@@ -695,30 +683,6 @@ panelJournalStock.setLayout(new BorderLayout(0, 0));
 
 	public void setModeleJournalProduit(ModeleTableauJournalProduit modeleJournalProduit) {
 		this.modeleJournalProduit = modeleJournalProduit;
+	
 	}
-
-	public FiltreProduit getFiltreProduit() {
-		return filtreProduit;
-	}
-
-	public void setFiltreProduit(FiltreProduit filtreProduit) {
-		this.filtreProduit = filtreProduit;
-	}
-
-	public FiltreJournalProduit getFiltreJournalProduit() {
-		return filtreJournalProduit;
-	}
-
-	public void setFiltreJournalProduit(FiltreJournalProduit filtreJournalProduit) {
-		this.filtreJournalProduit = filtreJournalProduit;
-	}
-	
-	
-	
-	
-
-	
-	
-	
-	
 }

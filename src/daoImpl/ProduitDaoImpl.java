@@ -117,8 +117,8 @@ public class ProduitDaoImpl implements ProduitDao{
 		else if (filtre=="Prix : Ordre décroissant"){tri="prixU desc";}
 		else if (filtre=="Quantité : Ordre croissant"){tri="quantite asc";}
 		else if (filtre=="Quantité : Ordre décroissant"){tri="quantite desc";}
-		/*else if (filtre=="Lieu de stockage : Ordre alphabétique"){tri="categorie desc";}
-		else if (filtre=="Lieu de stockage : Ordre alphabétique inverse"){tri="categorie desc";}*/
+		else if (filtre=="Lieu de stockage : Ordre alphabétique"){tri="categorie desc";}
+		else if (filtre=="Lieu de stockage : Ordre alphabétique inverse"){tri="categorie desc";}
 		
 		try {
 			Statement stm = bdd.getConnection().createStatement();
@@ -163,6 +163,31 @@ public class ProduitDaoImpl implements ProduitDao{
 		return listeProduit;
 	}
 
+	
+	@Override
+	public List<String> listerNomProduitEvenement(List<Integer> listeIdProduit) {
+		bdd.connect();
+		List<String> listeNomProduitEvenement = new ArrayList<String>();
+		
+		for(int i=0; i<listeIdProduit.size(); i++){		
+			try {
+				Statement stm = bdd.getConnection().createStatement();
+				String rqt="SELECT nomProduit FROM produit JOIN stockage ON produit.idStockage=stockage.idStockage WHERE idProduit="+listeIdProduit.get(i);
+				ResultSet res=stm.executeQuery(rqt);
+				while (res.next()){
+					String name=res.getString("nomProduit");
+					listeNomProduitEvenement.add(name);
+				}
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		bdd.close();
+		return listeNomProduitEvenement;	
+	}
+	
+	
 	private static User map(ResultSet resultSet) throws SQLException {
 
 		User utilisateur = new User();
@@ -338,8 +363,8 @@ public class ProduitDaoImpl implements ProduitDao{
 					Double nouveauprixU=res.getDouble("prix");
 					String createur=res.getString("utilisateur");
 					
-				ModificationProduit modif=new ModificationProduit(idModif,nouveauprixU,nouvelleQu,nomP,nouveauStockage,createur);
-				listeModif.add(modif);
+				//ModificationProduit modif=new ModificationProduit(idModif,nouveauprixU,nouvelleQu,nomP,nouveauStockage,createur);
+				//listeModif.add(modif);
 				}	
 			}catch (SQLException e) {
 				// TODO Auto-generated catch block

@@ -34,10 +34,10 @@ public class DataBase {
 			
 		} catch (ClassNotFoundException notFoundException) {
 			notFoundException.printStackTrace();
-			System.out.println("Erreur de connecxion");
+			System.out.println("Erreur de connexion");
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-			System.out.println("Erreur de connecxion");
+			System.out.println("Erreur de connexion");
 		}
 		return connection;
 	}

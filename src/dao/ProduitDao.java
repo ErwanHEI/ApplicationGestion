@@ -18,4 +18,5 @@ public interface ProduitDao {
 	public void suppressionJournalProduit(Integer id);
 	public List<Produit> listerProduitFiltre(String filtre);
 	public List<ModificationProduit> listerModificationFiltre(String filtre);
+	public List<String> listerNomProduitEvenement(List<Integer> listeIdProduit);
 }

@@ -16,6 +16,7 @@ import controler.ChangementMdpControleur;
 import controler.ControlerAjoutStockage;
 import controler.ControleurAjoutProduit;
 import controler.ControleurModificationProduit;
+import controler.ControleurProduitEvenement;
 import controleurTable.ControleurEncaisserVirement;
 import controleurTable.ControleurModifierCapacite;
 import controleurTable.ControleurSupprimerBudget;
@@ -109,7 +110,7 @@ public void execute(){
 	fen.setBounds(100, 100, 1024, 768);
 	fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	fen.setContentPane(panelProduit);
-	fen.setResizable(false);
+	fen.setResizable(true);
 	fen.setVisible(true);
 }
 
@@ -135,6 +136,13 @@ public void changerPanelBudget(PanelBudget pan){
 	pan.getBoutonSupprimerEncaissement().addActionListener(new ControleurSupprimerEncaissement(pan));
 	pan.getBoutonEncaisser().addActionListener(new ControleurEncaisserVirement(pan));
 	//pan.getBoutonSupprimerJournalBudget().addActionListener(new ControleurSupprimerJournalBudget(pan));
+	fen.validate();
+}
+
+public void changerPanelEvenement(PanelEvenement pan){
+	fen.invalidate();
+	fen.setContentPane(pan);
+	pan.getBoutonCreerEvenement().addActionListener(new ControleurProduitEvenement(pan));
 	fen.validate();
 }
 
