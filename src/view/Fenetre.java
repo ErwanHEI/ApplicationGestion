@@ -110,7 +110,7 @@ public void execute(){
 	fen.setBounds(100, 100, 1024, 768);
 	fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	fen.setContentPane(panelProduit);
-	fen.setResizable(true);
+	fen.setResizable(false);
 	fen.setVisible(true);
 }
 
