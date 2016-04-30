@@ -31,7 +31,7 @@ public class PanelComposantEvenement extends JPanel{
 			
 			panelComposantEvenement = new JPanel();
 			//nomEvenement = listeEvenement.get(i).getNomEvenement();
-			JLabel labelEvenement = new JLabel("nomEvenement);
+			JLabel labelEvenement = new JLabel("nomEvenement");
 			labelEvenement.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			labelEvenement.setBounds(15, 16, 147, 25);
 			panelComposantEvenement.add(labelEvenement);
