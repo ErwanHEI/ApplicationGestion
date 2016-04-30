@@ -31,11 +31,13 @@ public class QuantiteProduitEvenement extends JFrame {
 	private JButton boutonValider;
 	private List<Integer> listeIdProduit;
 	private ModeleTableauQuantiteProduit modeleListeProduit;
-	private Evenement event;
+	private PanelEvenement panelEvenement;
 
 
-	public QuantiteProduitEvenement(List<Integer> listeIdProduit) {
-		this.listeIdProduit=listeIdProduit;
+	public QuantiteProduitEvenement(PanelEvenement panelEvenement, List<Integer> listeIdProduit) {
+		this.panelEvenement = panelEvenement;
+		this.listeIdProduit = listeIdProduit;
+		
 		modeleListeProduit = new ModeleTableauQuantiteProduit(listeIdProduit);
 		setTitle("Saisie des quantités");
 		setVisible(true);
@@ -69,7 +71,10 @@ public class QuantiteProduitEvenement extends JFrame {
 		boutonValider.setBounds(256, 389, 134, 29);
 		panelSaisie.add(boutonValider);
 	}
-
+	
+	public void fermerFenetre(){
+		dispose();
+	}
 
 	public JTable getTableauQuantiteProduit() {
 		return tableauQuantiteProduit;
@@ -101,14 +106,16 @@ public class QuantiteProduitEvenement extends JFrame {
 	}
 
 
-	public Evenement getEvent() {
-		return event;
+	public PanelEvenement getPanelEvenement() {
+		return panelEvenement;
 	}
 
 
-	public void setEvent(Evenement event) {
-		this.event = event;
+	public void setPanelEvenement(PanelEvenement panelEvenement) {
+		this.panelEvenement = panelEvenement;
 	}
+	
+	
 	
 	
 	

@@ -56,7 +56,7 @@ public class Fenetre {
 	JMenuItem mntmBudget=new JMenuItem("Consulter et gérer le budget");
 	
 	
-	JMenu mnEvnements = new JMenu("Ev\u00E8nements");
+	JMenu mnEvenements = new JMenu("Evènements");
 	JMenuItem mntmEvenements = new JMenuItem("Consulter et gérer les évènements");
 		
 	
@@ -90,8 +90,8 @@ public class Fenetre {
 		mnBudgets.add(mntmBudget);
 		menuBar.add(mnBudgets);
 		
-		mnEvnements.add(mntmEvenements);
-		menuBar.add(mnEvnements);
+		mnEvenements.add(mntmEvenements);
+		menuBar.add(mnEvenements);
 		
 		
 		menuBar.add(mnAide);
@@ -267,13 +267,13 @@ public void setMnStocks(JMenu mnStocks) {
 
 
 
-public JMenu getMnEvnements() {
-	return mnEvnements;
+public JMenu getMnEvenements() {
+	return mnEvenements;
 }
 
 
-public void setMnEvnements(JMenu mnEvnements) {
-	this.mnEvnements = mnEvnements;
+public void setMnEvenements(JMenu mnEvnements) {
+	this.mnEvenements = mnEvnements;
 }
 
 

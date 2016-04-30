@@ -13,7 +13,7 @@ public class ModeleTableauQuantiteProduit extends AbstractTableModel{
 	private ProduitManager produitManager = new ProduitManager();
     private List<Produit> listeProduitEvenement = new ArrayList<Produit>();
  
-    private final String[] entetes = {"Nom du produit", "Quantité Nécessaire"};
+    private final String[] entetes = {"Nom du produit", "Quantités Nécessaires"};
     
     public ModeleTableauQuantiteProduit(List<Integer> listeIdProduit) {
         super();
@@ -53,21 +53,20 @@ public class ModeleTableauQuantiteProduit extends AbstractTableModel{
     
     //Récupère la quantité saisie par l'utilisateur
     @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {    	
-        if(aValue != null){
+    public void setValueAt(Object quantiteSaisie, int rowIndex, int columnIndex) {    	
+        if(quantiteSaisie != null){
             Produit produitEvenement = listeProduitEvenement.get(rowIndex);
             switch(columnIndex){
                 case 1:
-                	produitEvenement.setQuantite(Integer.valueOf((String) aValue));
+                	produitEvenement.setQuantite(Integer.valueOf((String) quantiteSaisie));
                     break;
             }
             this.clear();
             this.setListeProduitEvenement(listeProduitEvenement);
         }
         //VERIFICATION CONSOLE
-        for(int i=0; i<listeProduitEvenement.size(); i++){
-        System.out.println(listeProduitEvenement.get(i).getQuantite());
-        }
+        for(int i=0; i<listeProduitEvenement.size(); i++)
+        System.out.println("Quantité de "+listeProduitEvenement.get(i).getNomProduit()+" : "+listeProduitEvenement.get(i).getQuantite());
     }
     
     //Supprime le tableau dans l'interface

@@ -19,28 +19,33 @@ public class EvenementDaoImpl implements EvenementDao{
 	
 	DataBase bdd=new DataBase("gestionstock.sqlite");
 	Connection connection;
-
+	private int idEvenement;
+	
 	@Override
 	public Evenement ajoutEvent(Evenement event) {
 		bdd.connect();
+		
 		try {
-			PreparedStatement stmt = bdd.getConnection().prepareStatement("INSERT INTO `event`(`nomEvent`,`dateEvent`,`idUser`) VALUES(?,?,?)",Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmt = bdd.getConnection().prepareStatement("INSERT INTO `evenement`(`nomEvent`,`dateEvent`,`idUser`) VALUES(?,?,?)",Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, event.getNomEvenement());
 			stmt.setString(2, event.getDateEvent());
-			stmt.setInt(3, event.getCreateur().getIdUser());
+			//stmt.setInt(3, event.getCreateur().getIdUser());
 			stmt.execute();
-			for(int i=0;i<event.getListePdts().size();i++){
-				PreparedStatement stmt1=bdd.getConnection().prepareStatement("INSERT INTO `utiliser`(`idEvent`,`idProduit`) VALUES(?,?)");
-				stmt1.setInt(1, event.getIdEvenement());
-				stmt1.setInt(2, event.getListePdts().get(i).getIdProduit());
-				stmt.execute();
-			}
 			
 			ResultSet ids = stmt.getGeneratedKeys();
 			if (ids.next()) {
-				int idEvenement = ids.getInt(1);
+				this.idEvenement = ids.getInt(1);
 				event.setIdEvenement(idEvenement);
 			}
+			
+			for(int i=0;i<event.getListePdts().size();i++){
+				PreparedStatement stmt1=bdd.getConnection().prepareStatement("INSERT INTO `utiliser`(`idEvent`,`idProduit`, `quantiteNEC`) VALUES("+idEvenement+",?,?)");
+				stmt1.setInt(1, event.getListePdts().get(i).getIdProduit());
+				stmt1.setInt(2, event.getListePdts().get(i).getQuantite());
+				stmt1.execute();
+			}
+			
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -30,28 +30,33 @@ public class BarreMenuControle implements ActionListener{
 				creationCompte.execute();
 				
 			}
+			
 			if(e.getSource()==fen.getMntmStocks()){
 				//changement panel produit
-				
+				PanelEvenement pan2=new PanelEvenement();
 				PanelProduit pan=new PanelProduit();
-				fen.changerPanelStock(pan);
+				fen.changerPanelEvenement(pan2);
 			}
+			
 			if(e.getSource()==fen.getMntmBudget()){
 				// changement panel budget
 				if(fen.getUserActuel().getTypeUser()==1 ||fen.getUserActuel().getTypeUser()==3){
 					PanelBudget pan=new PanelBudget();
 					PanelEvenement pan2 = new PanelEvenement();
-					fen.changerPanelEvenement(pan2);
+					fen.changerPanelBudget(pan);
 				}else{
 					JOptionPane.showMessageDialog(null, "Vous n'avez pas l'autorisation pour y accéder", "ERREUR", 0);
 				}
 				
 			}
+			
 			if(e.getSource()==fen.getMntmEvenements()){
 				//changement panel event
-				PanelEvenement pan=new PanelEvenement();
-				fen.changerPanelEvenement(pan);
+				PanelBudget pan=new PanelBudget();
+				PanelEvenement pan2=new PanelEvenement();
+				fen.changerPanelEvenement(pan2);
 			}
+			
 			if(e.getSource()==fen.getMntmDconnexion()){
 				fen.setUserActuel(null);
 				Authentification authen=new Authentification();

@@ -5,15 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
-import entitie.Evenement;
-import entitie.Produit;
-import manager.ProduitManager;
 import modelTableau.ModeleTableauListeProduit;
-import modelTableau.ModeleTableauQuantiteProduit;
-import view.AjoutFournisseur;
 import view.PanelEvenement;
 import view.QuantiteProduitEvenement;
 
@@ -21,12 +15,11 @@ public class ControleurProduitEvenement extends AbstractAction{
 	
 	
 	private PanelEvenement panelEvenement;
+	
 	private JTable tableauProduitEvenement;
-	private JTable tableauQuantiteProduit;
 	private ModeleTableauListeProduit modeleListeProduit;
-	private ModeleTableauQuantiteProduit modeleTableauQuantiteProduit;
-	private ProduitManager produitManager = new ProduitManager();
 	private List<Integer> listeIdProduit;
+	
 	private QuantiteProduitEvenement fenQuantiteProduitEvenement;
 	
 	public ControleurProduitEvenement(PanelEvenement panelEvenement){
@@ -34,6 +27,7 @@ public class ControleurProduitEvenement extends AbstractAction{
 		this.panelEvenement = panelEvenement;
 		this.tableauProduitEvenement = panelEvenement.getTableauProduitEvenement();
 		this.modeleListeProduit = panelEvenement.getModeleListeProduit();
+		
 		}
 
 	@Override
@@ -43,14 +37,14 @@ public class ControleurProduitEvenement extends AbstractAction{
         int cellule;
         listeIdProduit = new ArrayList<Integer>();
         
+        //id des produits sélectionnés mis dans une liste
         for(int i=0; i<=row.length-1; i++){
-        	cellule = (int) tableauProduitEvenement.getValueAt(row[i], column);
+        	cellule = (int) tableauProduitEvenement.getValueAt(row[i], column); 
         	listeIdProduit.add(cellule);
-        	System.out.println(cellule);
+        	System.out.println("Id sélectionné : "+cellule);
         }
-        fenQuantiteProduitEvenement = new QuantiteProduitEvenement(listeIdProduit);
-        Evenement event=new Evenement(1, null, null, null, null);
-        fenQuantiteProduitEvenement.setEvent(event);
+        //Ouverture de la fenêtre de saisie des quantités nécessaires
+        fenQuantiteProduitEvenement = new QuantiteProduitEvenement(panelEvenement, listeIdProduit);
         fenQuantiteProduitEvenement.getBoutonValider().addActionListener(new ControleurAjoutQuantiteProduitEvenement(fenQuantiteProduitEvenement));
 	}
 	

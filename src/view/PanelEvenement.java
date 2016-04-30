@@ -31,7 +31,6 @@ public class PanelEvenement extends JPanel{
 	private JTextField champReferenceEvenement;
 	private JTextField champNomEvenement;
 	private JTextField champDateEvenement;
-	private JTextField champBudgetPrevu;
 	
 	private JButton boutonCreerEvenement;
 	
@@ -133,20 +132,20 @@ public class PanelEvenement extends JPanel{
 		champDateEvenement.setBounds(440, 150, 400, 26);
 		panelCreationEvenement.add(champDateEvenement);
 		
-		JLabel labelBudgetPrevu = new JLabel("Budget pr\u00E9vu :");
+		JLabel labelBudgetPrevu = new JLabel("Virement :");
 		labelBudgetPrevu.setForeground(Color.BLACK);
 		labelBudgetPrevu.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		labelBudgetPrevu.setBounds(293, 189, 132, 24);
+		labelBudgetPrevu.setBounds(331, 189, 94, 24);
 		panelCreationEvenement.add(labelBudgetPrevu);
-		
-		champBudgetPrevu = new JTextField();
-		champBudgetPrevu.setColumns(10);
-		champBudgetPrevu.setBounds(440, 190, 400, 26);
-		panelCreationEvenement.add(champBudgetPrevu);
 		
 		JLabel labelOptionnel = new JLabel("(optionnel)");
 		labelOptionnel.setBounds(855, 193, 78, 20);
 		panelCreationEvenement.add(labelOptionnel);
+		
+		JButton btnNewButton = new JButton("Ajouter");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnNewButton.setBounds(440, 189, 400, 29);
+		panelCreationEvenement.add(btnNewButton);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 246, 997, 369);
@@ -210,14 +209,6 @@ public class PanelEvenement extends JPanel{
 		this.champDateEvenement = champDateEvenement;
 	}
 
-	public JTextField getChampBudgetPrevu() {
-		return champBudgetPrevu;
-	}
-
-	public void setChampBudgetPrevu(JTextField champBudgetPrevu) {
-		this.champBudgetPrevu = champBudgetPrevu;
-	}
-
 	public JButton getBoutonCreerEvenement() {
 		return boutonCreerEvenement;
 	}
@@ -249,7 +240,5 @@ public class PanelEvenement extends JPanel{
 	public void setTableauProduitEvenement(JTable tableauProduitEvenement) {
 		this.tableauProduitEvenement = tableauProduitEvenement;
 	}
-	
-	
 }
 
