@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import entitie.Evenement;
 import modelTableau.ModeleTableauListeProduit;
 import modelTableau.ModeleTableauQuantiteProduit;
 
@@ -17,39 +18,27 @@ import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.List;
+
 import javax.swing.BoxLayout;
 import javax.swing.JTable;
+import javax.swing.JButton;
 
 public class QuantiteProduitEvenement extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
-	
-	private ModeleTableauQuantiteProduit modeleListeProduit = new ModeleTableauQuantiteProduit();
+	private JTable tableauQuantiteProduit;
+	private JButton boutonValider;
+	private List<Integer> listeIdProduit;
+	private ModeleTableauQuantiteProduit modeleListeProduit;
+	private Evenement event;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					QuantiteProduitEvenement frame = new QuantiteProduitEvenement();
-					frame.setResizable(false);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
-	public QuantiteProduitEvenement() {
+	public QuantiteProduitEvenement(List<Integer> listeIdProduit) {
+		this.listeIdProduit=listeIdProduit;
+		modeleListeProduit = new ModeleTableauQuantiteProduit(listeIdProduit);
 		setTitle("Saisie des quantités");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
 		setBounds(100, 100, 650, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -69,10 +58,58 @@ public class QuantiteProduitEvenement extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.getVerticalScrollBar().setUnitIncrement(30);
-		scrollPane.setBounds(0, 83, 618, 351);
+		scrollPane.setBounds(0, 83, 618, 290);
 		panelSaisie.add(scrollPane);
 		
-		table = new JTable(modeleListeProduit);
-		scrollPane.setViewportView(table);
+		tableauQuantiteProduit = new JTable(modeleListeProduit);
+		scrollPane.setViewportView(tableauQuantiteProduit);
+		
+		boutonValider = new JButton("Valider");
+		boutonValider.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		boutonValider.setBounds(256, 389, 134, 29);
+		panelSaisie.add(boutonValider);
 	}
+
+
+	public JTable getTableauQuantiteProduit() {
+		return tableauQuantiteProduit;
+	}
+
+
+	public void setTableauQuantiteProduit(JTable tableauQuantiteProduit) {
+		this.tableauQuantiteProduit = tableauQuantiteProduit;
+	}
+
+
+	public ModeleTableauQuantiteProduit getModeleListeProduit() {
+		return modeleListeProduit;
+	}
+
+
+	public void setModeleListeProduit(ModeleTableauQuantiteProduit modeleListeProduit) {
+		this.modeleListeProduit = modeleListeProduit;
+	}
+
+
+	public JButton getBoutonValider() {
+		return boutonValider;
+	}
+
+
+	public void setBoutonValider(JButton boutonValider) {
+		this.boutonValider = boutonValider;
+	}
+
+
+	public Evenement getEvent() {
+		return event;
+	}
+
+
+	public void setEvent(Evenement event) {
+		this.event = event;
+	}
+	
+	
+	
 }

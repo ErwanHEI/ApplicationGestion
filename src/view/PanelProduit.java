@@ -17,6 +17,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.util.List;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
@@ -59,6 +60,7 @@ public class PanelProduit extends JPanel{
 	private JTextField champCommentaire;
 	private JTextField champNomLieu;
 	private JTextField champLocalisationLieu;
+	private JTextField champFournisseurProduit;
 	
 	private ModeleTableauListeProduit modeleListeProduit = new ModeleTableauListeProduit();
 	private ModeleTableauLieuStockage modeleLieuStockage = new ModeleTableauLieuStockage();
@@ -79,15 +81,22 @@ public class PanelProduit extends JPanel{
 	private JTable tableauProduit;
 	private JTable tableauLieuStockage;
 	private JTable tableauJournalStock;
-	private String supp = "Supprimer la ligne";
-	private JTextField champFournisseurProduit;
 	
 	private JButton boutonAjouterProduit; 
 	private JButton boutonModifierProduit;
-	private JPanel panelLieuStockage ;
-	private JButton boutonAjouterLieu ;
+	private JPanel panelLieuStockage;
+	private JButton boutonAjouterLieu;
 	
-	
+	private String html1 = "<html><body style = 'margin:0;padding-top:5px;padding-bottom:5px;padding-left:10px;font-size:1.4em;font-family:Verdana'>";
+    private String html2 =  "</body></html>";
+    private String html3 = "<html><body style = 'margin:0;font-size:1.2em;font-family:Verdana'>";
+
+	private int x = Toolkit.getDefaultToolkit().getScreenSize().width;
+	private int y = Toolkit.getDefaultToolkit().getScreenSize().height;
+	private double x1 = 1024;
+	private double y1 = 768;
+	private double adaptx = x/x1;
+	private double adapty = y/y1;
 
 	
 	public PanelProduit() {
@@ -558,14 +567,6 @@ panelJournalStock.setLayout(new BorderLayout(0, 0));
 
 	public void setTableauJournalStock(JTable tableauJournalStock) {
 		this.tableauJournalStock = tableauJournalStock;
-	}
-
-	public String getSupp() {
-		return supp;
-	}
-
-	public void setSupp(String supp) {
-		this.supp = supp;
 	}
 
 	public JTextField getChampFournisseurProduit() {

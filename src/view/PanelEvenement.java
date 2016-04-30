@@ -23,6 +23,8 @@ import modelTableau.ModeleTableauListeProduit;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import java.awt.GridLayout;
+import java.awt.LayoutManager;
 
 public class PanelEvenement extends JPanel{
 
@@ -37,6 +39,7 @@ public class PanelEvenement extends JPanel{
 	private ModeleTableauListeBudget modeleListeBudget = new ModeleTableauListeBudget();
 	private JTable tableauProduitEvenement;
 
+	private LayoutManager panelComposantEvenement;
 	
 	public PanelEvenement() {
 		initialize();
@@ -60,6 +63,17 @@ public class PanelEvenement extends JPanel{
 		JPanel panelEvenement = new JPanel();
 		panelEvenement.setBounds(0, 0, 997, 631);
 		ongletEvenement.add(panelEvenement);
+		panelEvenement.setLayout(null);
+		
+		JScrollPane scrollPaneEvenement = new JScrollPane();
+		scrollPaneEvenement.setBounds(0, 0, 997, 631);
+		panelEvenement.add(scrollPaneEvenement);
+		
+		JPanel panelScroll = new JPanel();
+		panelScroll.setLayout(new GridLayout(1, 1, 0, 0));
+		
+		scrollPaneEvenement.setViewportView(panelScroll);
+		
 		
 /*----------------------------------------------------------------------------------------------
 ---------------------------------------------TABLEAU DES BUDGETS--------------------------------

@@ -89,7 +89,7 @@ public class ProduitDaoImpl implements ProduitDao{
 				PreparedStatement stmt1 = bdd.getConnection().prepareStatement("SELECT * FROM user WHERE idUser=?");
 				stmt1.setInt(1, idCreateur);
 				ResultSet res2=stmt1.executeQuery();
-				User createur=map(res2);
+				//User createur=map(res2);
 				
 				
 				Produit produit=new Produit(idProduit,name, categorie,prixU, quantite,stockage,fournisseur,null);
@@ -149,7 +149,7 @@ public class ProduitDaoImpl implements ProduitDao{
 				PreparedStatement stmt1 = bdd.getConnection().prepareStatement("SELECT * FROM user WHERE idUser=?");
 				stmt1.setInt(1, 3);
 				ResultSet res2=stmt1.executeQuery();
-				User createur=map(res2);
+				//User createur=map(res2);
 				
 				
 				Produit produit=new Produit(idProduit,name, categorie,prixU, quantite,stockage,fournisseur,null);
@@ -165,18 +165,44 @@ public class ProduitDaoImpl implements ProduitDao{
 
 	
 	@Override
-	public List<String> listerNomProduitEvenement(List<Integer> listeIdProduit) {
+	public List<Produit> listerProduitEvenement(List<Integer> listeIdProduit) {
 		bdd.connect();
-		List<String> listeNomProduitEvenement = new ArrayList<String>();
+		List<Produit> listeProduitEvenement = new ArrayList<Produit>();
 		
 		for(int i=0; i<listeIdProduit.size(); i++){		
 			try {
 				Statement stm = bdd.getConnection().createStatement();
-				String rqt="SELECT nomProduit FROM produit JOIN stockage ON produit.idStockage=stockage.idStockage WHERE idProduit="+listeIdProduit.get(i);
+				String rqt="SELECT * FROM produit JOIN stockage ON produit.idStockage=stockage.idStockage WHERE idProduit="+listeIdProduit.get(i);
 				ResultSet res=stm.executeQuery(rqt);
 				while (res.next()){
 					String name=res.getString("nomProduit");
-					listeNomProduitEvenement.add(name);
+					Integer idProduit=res.getInt("idProduit");
+					String categorie=res.getString("categorie");
+					Integer quantite=res.getInt("quantite");
+					Double prixU=res.getDouble("prixU");
+					Integer idFournisseur=res.getInt("idFournisseur");
+					Integer idCreateur=res.getInt("idUser");
+					
+					Integer idStockage=res.getInt("idStockage");
+					String localisation=res.getString("localisation");
+					String nomStockage=res.getString("nomStockage");
+					Integer remplissage=res.getInt("remplissage");
+					Stockage stockage=new Stockage(idStockage,localisation,nomStockage,remplissage);
+					
+					PreparedStatement stmt = bdd.getConnection().prepareStatement("SELECT * FROM fournisseur WHERE idFournisseur=?");
+					stmt.setInt(1, idFournisseur);
+					ResultSet res1=stmt.executeQuery();
+					String nomF=res1.getString("nomFournisseur");
+					String adresse=res1.getString("adresse");
+					Fournisseur fournisseur=new Fournisseur(idFournisseur,nomF,adresse);
+					
+					PreparedStatement stmt1 = bdd.getConnection().prepareStatement("SELECT * FROM user WHERE idUser=?");
+					stmt1.setInt(1, 3);
+					ResultSet res2=stmt1.executeQuery();
+					//User createur=map(res2);
+					
+					Produit produit=new Produit(idProduit, name, categorie, prixU, 0, stockage, fournisseur, null);
+					listeProduitEvenement.add(produit);
 				}
 			}catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -184,20 +210,18 @@ public class ProduitDaoImpl implements ProduitDao{
 			}
 		}
 		bdd.close();
-		return listeNomProduitEvenement;	
+		return listeProduitEvenement;	
 	}
 	
 	
-	private static User map(ResultSet resultSet) throws SQLException {
-
+	/*private static User map(ResultSet resultSet) throws SQLException {
 		User utilisateur = new User();
 		utilisateur.setIdUser(resultSet.getInt("idUser"));
 		utilisateur.setEmail(resultSet.getString("email"));
 		utilisateur.setMdp(resultSet.getString("mdp"));
 		utilisateur.setNom(resultSet.getString("nomUser"));
 		return utilisateur;
-
-	}
+	}*/
 
 
 

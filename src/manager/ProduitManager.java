@@ -62,7 +62,7 @@ public class ProduitManager {
 		return produitDao.listerModificationFiltre(filtre);
 	}
 	
-	public List<String> listerNomProduitEvenement(List<Integer> listeIdProduit){
-		return produitDao.listerNomProduitEvenement(listeIdProduit);
+	public List<Produit> listerProduitEvenement(List<Integer> listeIdProduit){
+		return produitDao.listerProduitEvenement(listeIdProduit);
 	}
 }

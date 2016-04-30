@@ -57,11 +57,11 @@ public class EvenementDaoImpl implements EvenementDao{
 		List<Evenement> liste=new ArrayList<Evenement>();
 		List<Produit> listePdt=new ArrayList<Produit>();
 		
-try {
-			
+		try {
 			Statement stm = bdd.getConnection().createStatement();
 			String rqt="SELECT * FROM evenement ";
 			ResultSet res=stm.executeQuery(rqt);
+			
 			while (res.next()){
 				Integer idEvent=res.getInt("idEvent");
 				String nomEvent=res.getString("nomEvent");
@@ -76,6 +76,7 @@ try {
 				PreparedStatement stmt2 = bdd.getConnection().prepareStatement("SELECT * FROM utiliser INNER JOIN produit ON utiliser.idProduit=produit.idProduit WHERE idEvent=?");
 				stmt2.setInt(1, idEvent);
 				ResultSet res1=stmt2.executeQuery();
+				
 				while(res1.next()){
 					String name=res1.getString("nomProduit");
 					Integer idProduit=res1.getInt("idProduit");
