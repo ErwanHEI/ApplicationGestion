@@ -29,7 +29,7 @@ public class EvenementDaoImpl implements EvenementDao{
 			PreparedStatement stmt = bdd.getConnection().prepareStatement("INSERT INTO `evenement`(`nomEvent`,`dateEvent`,`idUser`) VALUES(?,?,?)",Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, event.getNomEvenement());
 			stmt.setString(2, event.getDateEvent());
-			//stmt.setInt(3, event.getCreateur().getIdUser());
+			stmt.setInt(3, event.getCreateur().getIdUser());
 			stmt.execute();
 			
 			ResultSet ids = stmt.getGeneratedKeys();

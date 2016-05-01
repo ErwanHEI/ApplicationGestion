@@ -8,8 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import entitie.Evenement;
+import entitie.User;
 import modelTableau.ModeleTableauListeProduit;
-import modelTableau.ModeleTableauQuantiteProduit;
+import modelTableau.ModeleTableauQuantiteProduitEvenement;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -26,19 +27,21 @@ import javax.swing.JButton;
 
 public class QuantiteProduitEvenement extends JFrame {
 
+	private User user;
 	private JPanel contentPane;
 	private JTable tableauQuantiteProduit;
 	private JButton boutonValider;
 	private List<Integer> listeIdProduit;
-	private ModeleTableauQuantiteProduit modeleListeProduit;
+	private ModeleTableauQuantiteProduitEvenement modeleListeProduit;
 	private PanelEvenement panelEvenement;
 
 
-	public QuantiteProduitEvenement(PanelEvenement panelEvenement, List<Integer> listeIdProduit) {
+	public QuantiteProduitEvenement(User user, PanelEvenement panelEvenement, List<Integer> listeIdProduit) {
+		this.user = user;
 		this.panelEvenement = panelEvenement;
 		this.listeIdProduit = listeIdProduit;
 		
-		modeleListeProduit = new ModeleTableauQuantiteProduit(listeIdProduit);
+		modeleListeProduit = new ModeleTableauQuantiteProduitEvenement(listeIdProduit);
 		setTitle("Saisie des quantités");
 		setVisible(true);
 		setBounds(100, 100, 650, 500);
@@ -86,12 +89,12 @@ public class QuantiteProduitEvenement extends JFrame {
 	}
 
 
-	public ModeleTableauQuantiteProduit getModeleListeProduit() {
+	public ModeleTableauQuantiteProduitEvenement getModeleListeProduit() {
 		return modeleListeProduit;
 	}
 
 
-	public void setModeleListeProduit(ModeleTableauQuantiteProduit modeleListeProduit) {
+	public void setModeleListeProduit(ModeleTableauQuantiteProduitEvenement modeleListeProduit) {
 		this.modeleListeProduit = modeleListeProduit;
 	}
 
@@ -105,15 +108,25 @@ public class QuantiteProduitEvenement extends JFrame {
 		this.boutonValider = boutonValider;
 	}
 
-
 	public PanelEvenement getPanelEvenement() {
 		return panelEvenement;
 	}
 
-
 	public void setPanelEvenement(PanelEvenement panelEvenement) {
 		this.panelEvenement = panelEvenement;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	
+
+	
 	
 	
 	

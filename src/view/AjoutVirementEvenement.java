@@ -15,11 +15,11 @@ import javax.swing.JComboBox;
 public class AjoutVirementEvenement extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField champReference;
+	private JTextField champEmetteur;
+	private JTextField champRecepteur;
+	private JTextField champDate;
+	private JTextField champMontant;
 
 	/**
 	 * Launch the application.
@@ -58,46 +58,46 @@ public class AjoutVirementEvenement extends JFrame {
 		labelReference.setBounds(123, 19, 80, 20);
 		panelAjoutVirementEvenement.add(labelReference);
 		
-		textField = new JTextField();
-		textField.setBounds(218, 16, 146, 26);
-		panelAjoutVirementEvenement.add(textField);
-		textField.setColumns(10);
+		champReference = new JTextField();
+		champReference.setBounds(218, 16, 146, 26);
+		panelAjoutVirementEvenement.add(champReference);
+		champReference.setColumns(10);
 		
 		JLabel labelEmetteur = new JLabel("Emetteur :");
 		labelEmetteur.setBounds(128, 58, 75, 20);
 		panelAjoutVirementEvenement.add(labelEmetteur);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(218, 55, 146, 26);
-		panelAjoutVirementEvenement.add(textField_1);
+		champEmetteur = new JTextField();
+		champEmetteur.setColumns(10);
+		champEmetteur.setBounds(218, 55, 146, 26);
+		panelAjoutVirementEvenement.add(champEmetteur);
 		
 		JLabel labelRecepteur = new JLabel("R\u00E9cepteur :");
 		labelRecepteur.setBounds(123, 97, 81, 20);
 		panelAjoutVirementEvenement.add(labelRecepteur);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(218, 94, 146, 26);
-		panelAjoutVirementEvenement.add(textField_2);
+		champRecepteur = new JTextField();
+		champRecepteur.setColumns(10);
+		champRecepteur.setBounds(218, 94, 146, 26);
+		panelAjoutVirementEvenement.add(champRecepteur);
 		
 		JLabel labelDate = new JLabel("Date :");
 		labelDate.setBounds(160, 136, 43, 20);
 		panelAjoutVirementEvenement.add(labelDate);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(218, 133, 146, 26);
-		panelAjoutVirementEvenement.add(textField_3);
+		champDate = new JTextField();
+		champDate.setColumns(10);
+		champDate.setBounds(218, 133, 146, 26);
+		panelAjoutVirementEvenement.add(champDate);
 		
 		JLabel labelMontant = new JLabel("Montant :");
 		labelMontant.setBounds(135, 175, 68, 20);
 		panelAjoutVirementEvenement.add(labelMontant);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(218, 172, 146, 26);
-		panelAjoutVirementEvenement.add(textField_4);
+		champMontant = new JTextField();
+		champMontant.setColumns(10);
+		champMontant.setBounds(218, 172, 146, 26);
+		panelAjoutVirementEvenement.add(champMontant);
 		
 		JLabel labelBudget = new JLabel("Budget :");
 		labelBudget.setBounds(143, 214, 60, 20);

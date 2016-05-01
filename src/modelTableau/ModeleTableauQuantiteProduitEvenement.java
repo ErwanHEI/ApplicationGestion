@@ -8,14 +8,14 @@ import javax.swing.table.AbstractTableModel;
 import entitie.Produit;
 import manager.ProduitManager;
 
-public class ModeleTableauQuantiteProduit extends AbstractTableModel{
+public class ModeleTableauQuantiteProduitEvenement extends AbstractTableModel{
 
 	private ProduitManager produitManager = new ProduitManager();
     private List<Produit> listeProduitEvenement = new ArrayList<Produit>();
  
     private final String[] entetes = {"Nom du produit", "Quantités Nécessaires"};
     
-    public ModeleTableauQuantiteProduit(List<Integer> listeIdProduit) {
+    public ModeleTableauQuantiteProduitEvenement(List<Integer> listeIdProduit) {
         super();
         listeProduitEvenement = produitManager.listerProduitEvenement(listeIdProduit);
     }

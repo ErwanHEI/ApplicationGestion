@@ -5,15 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 
+import entitie.User;
 import modelTableau.ModeleTableauListeProduit;
+import view.Fenetre;
 import view.PanelEvenement;
 import view.QuantiteProduitEvenement;
 
 public class ControleurProduitEvenement extends AbstractAction{
 	
-	
+	private Fenetre fen;
+	private User user;
 	private PanelEvenement panelEvenement;
 	
 	private JTable tableauProduitEvenement;
@@ -22,8 +26,10 @@ public class ControleurProduitEvenement extends AbstractAction{
 	
 	private QuantiteProduitEvenement fenQuantiteProduitEvenement;
 	
-	public ControleurProduitEvenement(PanelEvenement panelEvenement){
+	public ControleurProduitEvenement(Fenetre fen, PanelEvenement panelEvenement){
 		super();
+		this.fen = fen;
+		this.user = fen.getUserActuel();
 		this.panelEvenement = panelEvenement;
 		this.tableauProduitEvenement = panelEvenement.getTableauProduitEvenement();
 		this.modeleListeProduit = panelEvenement.getModeleListeProduit();
@@ -44,8 +50,8 @@ public class ControleurProduitEvenement extends AbstractAction{
         	System.out.println("Id sélectionné : "+cellule);
         }
         //Ouverture de la fenêtre de saisie des quantités nécessaires
-        fenQuantiteProduitEvenement = new QuantiteProduitEvenement(panelEvenement, listeIdProduit);
-        fenQuantiteProduitEvenement.getBoutonValider().addActionListener(new ControleurAjoutQuantiteProduitEvenement(fenQuantiteProduitEvenement));
+        fenQuantiteProduitEvenement = new QuantiteProduitEvenement(user, panelEvenement, listeIdProduit);
+        fenQuantiteProduitEvenement.getBoutonValider().addActionListener(new ControleurAjoutEvenement(fenQuantiteProduitEvenement));
 	}
 	
 	

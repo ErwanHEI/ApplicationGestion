@@ -32,6 +32,7 @@ public class PanelEvenement extends JPanel{
 	private JTextField champNomEvenement;
 	private JTextField champDateEvenement;
 	
+	private JButton boutonAjouterVirement;
 	private JButton boutonCreerEvenement;
 	
 	private ModeleTableauListeProduit modeleListeProduit = new ModeleTableauListeProduit();
@@ -142,10 +143,10 @@ public class PanelEvenement extends JPanel{
 		labelOptionnel.setBounds(855, 193, 78, 20);
 		panelCreationEvenement.add(labelOptionnel);
 		
-		JButton btnNewButton = new JButton("Ajouter");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton.setBounds(440, 189, 400, 29);
-		panelCreationEvenement.add(btnNewButton);
+		boutonAjouterVirement = new JButton("Ajouter");
+		boutonAjouterVirement.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		boutonAjouterVirement.setBounds(440, 189, 400, 29);
+		panelCreationEvenement.add(boutonAjouterVirement);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 246, 997, 369);
@@ -211,6 +212,14 @@ public class PanelEvenement extends JPanel{
 
 	public JButton getBoutonCreerEvenement() {
 		return boutonCreerEvenement;
+	}
+
+	public JButton getBoutonAjouterVirement() {
+		return boutonAjouterVirement;
+	}
+
+	public void setBoutonAjouterVirement(JButton boutonAjouterVirement) {
+		this.boutonAjouterVirement = boutonAjouterVirement;
 	}
 
 	public void setBoutonCreerEvenement(JButton boutonCreerEvenement) {

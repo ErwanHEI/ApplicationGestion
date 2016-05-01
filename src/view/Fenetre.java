@@ -15,6 +15,7 @@ import controler.BarreMenuControle;
 import controler.ChangementMdpControleur;
 import controler.ControlerAjoutStockage;
 import controler.ControleurAjoutProduit;
+import controler.ControleurAjoutVirementEvenement;
 import controler.ControleurModificationProduit;
 import controler.ControleurProduitEvenement;
 import controleurTable.ControleurEncaisserVirement;
@@ -142,7 +143,8 @@ public void changerPanelBudget(PanelBudget pan){
 public void changerPanelEvenement(PanelEvenement pan){
 	fen.invalidate();
 	fen.setContentPane(pan);
-	pan.getBoutonCreerEvenement().addActionListener(new ControleurProduitEvenement(pan));
+	pan.getBoutonAjouterVirement().addActionListener(new ControleurAjoutVirementEvenement(pan));
+	pan.getBoutonCreerEvenement().addActionListener(new ControleurProduitEvenement(this, pan));
 	fen.validate();
 }
 

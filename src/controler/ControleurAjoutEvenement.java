@@ -8,24 +8,28 @@ import javax.swing.JTable;
 
 import entitie.Evenement;
 import entitie.Produit;
+import entitie.User;
 import manager.EvenementManager;
-import modelTableau.ModeleTableauQuantiteProduit;
+import modelTableau.ModeleTableauQuantiteProduitEvenement;
+import view.Fenetre;
 import view.PanelEvenement;
 import view.QuantiteProduitEvenement;
 
-public class ControleurAjoutQuantiteProduitEvenement implements ActionListener{
+public class ControleurAjoutEvenement implements ActionListener{
 
+	private User user;
 	private QuantiteProduitEvenement fenQuantiteProduitEvenement;
 	private PanelEvenement panelEvenement;
 	private String referenceEvenement;
 	private String nomEvenement;
 	private String dateEvenement;
-	private ModeleTableauQuantiteProduit modeleTableauQuantiteProduit;
+	private ModeleTableauQuantiteProduitEvenement modeleTableauQuantiteProduit;
 	private List<Produit> listeProduitEvenement;
 	private EvenementManager evenementManager = new EvenementManager();
 	
-	public ControleurAjoutQuantiteProduitEvenement(QuantiteProduitEvenement fenQuantiteProduitEvenement){
+	public ControleurAjoutEvenement(QuantiteProduitEvenement fenQuantiteProduitEvenement){
 		super();
+		this.user = fenQuantiteProduitEvenement.getUser();
 		this.fenQuantiteProduitEvenement = fenQuantiteProduitEvenement;
 		this.panelEvenement = fenQuantiteProduitEvenement.getPanelEvenement();
 		this.referenceEvenement = panelEvenement.getChampReferenceEvenement().getText();
@@ -36,9 +40,7 @@ public class ControleurAjoutQuantiteProduitEvenement implements ActionListener{
 		}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		//BALANCER listeProduitEvenement dans impl//
-		
+	public void actionPerformed(ActionEvent e) {	
 		//VERIFICATION CONSOLE
 		for(int i=0; i<listeProduitEvenement.size(); i++)
 		System.out.println("Nom produit : "+listeProduitEvenement.get(i).getNomProduit()+
@@ -46,8 +48,8 @@ public class ControleurAjoutQuantiteProduitEvenement implements ActionListener{
 		System.out.println("Référence : "+referenceEvenement);
 		System.out.println("Nom : "+nomEvenement);
 		System.out.println("Date : "+dateEvenement);
-		
-		Evenement evenement = new Evenement(0, nomEvenement, dateEvenement, null, listeProduitEvenement);
+			
+		Evenement evenement = new Evenement(0, nomEvenement, dateEvenement, user, listeProduitEvenement);
 		evenementManager.ajoutEvent(evenement);
 		
 		fenQuantiteProduitEvenement.fermerFenetre();
