@@ -155,5 +155,14 @@ public class AjoutVirementEvenement extends JFrame {
 	public void setBoutonValider(JButton boutonValider) {
 		this.boutonValider = boutonValider;
 	}
+
+	public ComboBoxDynamiqueBudget getComboBoxDynamiqueBudget() {
+		return comboBoxDynamiqueBudget;
+	}
+
+	public void setComboBoxDynamiqueBudget(ComboBoxDynamiqueBudget comboBoxDynamiqueBudget) {
+		this.comboBoxDynamiqueBudget = comboBoxDynamiqueBudget;
+	}
+	
 	
 }

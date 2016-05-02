@@ -179,8 +179,8 @@ public class VirementDaoImpl implements VirementDao{
 				createur.setMdp(res.getString("mdp"));
 				createur.setNom(res.getString("nomUser"));
 				createur.setTypeUser(res.getInt("type"));
-				
-				Virement virement=new Virement(idVirement,ref,montant, emetteur,recepteur,dateVirement,false,budget,createur);
+				//a revoir?!
+				Virement virement=new Virement(idVirement,ref,montant, emetteur,recepteur,dateVirement,false,null, budget,createur);
 				listeVirementFiltre.add(virement);
 			}
 		}catch (SQLException e) {

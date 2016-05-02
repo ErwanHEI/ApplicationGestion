@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 
+import entitie.Virement;
 import modelTableau.ModeleTableauListeBudget;
 import modelTableau.ModeleTableauListeProduit;
 
@@ -25,6 +26,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PanelEvenement extends JPanel{
 
@@ -38,6 +41,8 @@ public class PanelEvenement extends JPanel{
 	private ModeleTableauListeProduit modeleListeProduit = new ModeleTableauListeProduit();
 	private ModeleTableauListeBudget modeleListeBudget = new ModeleTableauListeBudget();
 	private JTable tableauProduitEvenement;
+	
+	private List<Virement> listeVirementEvenement;
 
 	private LayoutManager panelComposantEvenement;
 	
@@ -45,10 +50,14 @@ public class PanelEvenement extends JPanel{
 		initialize();
 	}
 
+
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		listeVirementEvenement=new ArrayList<Virement>();
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 16, 1002, 665);
@@ -248,6 +257,15 @@ public class PanelEvenement extends JPanel{
 
 	public void setTableauProduitEvenement(JTable tableauProduitEvenement) {
 		this.tableauProduitEvenement = tableauProduitEvenement;
+	}
+	
+	
+	public List<Virement> getListeVirementEvenement() {
+		return listeVirementEvenement;
+	}
+
+	public void setListeVirementEvenement(List<Virement> listeVirementEvenement) {
+		this.listeVirementEvenement = listeVirementEvenement;
 	}
 }
 

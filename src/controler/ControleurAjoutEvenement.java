@@ -9,7 +9,9 @@ import javax.swing.JTable;
 import entitie.Evenement;
 import entitie.Produit;
 import entitie.User;
+import entitie.Virement;
 import manager.EvenementManager;
+import manager.VirementManager;
 import modelTableau.ModeleTableauQuantiteProduitEvenement;
 import view.Fenetre;
 import view.PanelEvenement;
@@ -48,9 +50,21 @@ public class ControleurAjoutEvenement implements ActionListener{
 		System.out.println("Référence : "+referenceEvenement);
 		System.out.println("Nom : "+nomEvenement);
 		System.out.println("Date : "+dateEvenement);
+		
+		//Récupération des virements de l'évenement
+		List<Virement> listeVirement=panelEvenement.getListeVirementEvenement();
+		System.out.println(listeVirement.size());
+		
 			
 		Evenement evenement = new Evenement(0, nomEvenement, dateEvenement, user, listeProduitEvenement);
-		evenementManager.ajoutEvent(evenement);
+		Evenement newEvent=evenementManager.ajoutEvent(evenement);
+		Integer idEvent=newEvent.getIdEvenement();
+		for(int i=0; i<listeVirement.size();i++){
+			listeVirement.get(i).setEventAssocie(new Evenement (idEvent, dateEvenement, dateEvenement, user, listeProduitEvenement));
+			listeVirement.get(i).setCreateur(user);
+			VirementManager.getInstance().ajoutVirement(listeVirement.get(i));
+		}
+		
 		
 		fenQuantiteProduitEvenement.fermerFenetre();
 		
