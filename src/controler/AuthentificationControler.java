@@ -72,6 +72,8 @@ public class AuthentificationControler implements ActionListener{
 						fen.getMntmDconnexion().addActionListener(new BarreMenuControle(fen));
 						fen.getMntmBudget().addActionListener(new BarreMenuControle(fen));
 						fen.getMntmStocks().addActionListener(new BarreMenuControle(fen));
+						fen.getMntmEvenements().addActionListener(new BarreMenuControle(fen));
+						fen.getMntmConsulterSurPdf().addActionListener(new BarreMenuControle(fen));
 						fen.getMntmCrerUnNouveau().addActionListener(new BarreMenuControle(fen));
 						fen.getMntmModifierVotreMot().addActionListener(new ChangementMdpControleur(fen));
 						

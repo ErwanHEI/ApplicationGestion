@@ -11,7 +11,7 @@ import java.util.Random;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-import entitie.SendMail;
+import util.SendMail;
 import entitie.User;
 import manager.UserManager;
 import view.CreationCompte;
