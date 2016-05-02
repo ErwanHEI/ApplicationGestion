@@ -39,4 +39,8 @@ public class BudgetManager {
 	public List<Budget> listerBudgetFiltre (String filtre){
 		return budgetDao.listerBudgetFiltre(filtre);
 	}
+	
+	public Double newMontant(Integer id){
+		return budgetDao.newMontant(id);
+	}
 }

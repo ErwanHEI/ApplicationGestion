@@ -19,4 +19,5 @@ public interface ProduitDao {
 	public List<Produit> listerProduitFiltre(String filtre);
 	public List<ModificationProduit> listerModificationFiltre(String filtre);
 	public List<Produit> listerProduitEvenement(List<Integer> listeIdProduit);
+	public Integer recupNewQuantite(Integer id);
 }

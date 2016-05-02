@@ -31,30 +31,47 @@ import java.io.FileInputStream;
 	      }
 
 	   }
-
-	   public static void main(String[] args){
-	      try{
-	         // chargement des propriétés
-	         Properties prop = PropertyLoader.load("proprietes/properties");
-
-	         // Affichage des propriétés
-	         // Récupère la propriété ma.cle
-	         // Si la propriété n'existe pas, retourne la valeur par défaut "vide"
-	         System.out.println("adresse : "+ prop.getProperty("adresse", "non spécifié"));
-	         System.out.println("mot de passe : "+ prop.getProperty("mdp", "non spécifié"));
-	      }
-	      catch(Exception e){
-	         e.printStackTrace();
-	      }
-		   Properties temp=new Properties();
+	   
+	   public void newValeur(String cle, Properties prop){
+		   
 		  
 		   
-		   temp.setProperty("Lait", "6");
+		   prop.setProperty("Lait", "6");
 	         try{
-	             temp.store(new FileOutputStream("proprietes/properties"), "Entete_de_test");
+	             prop.store(new FileOutputStream("proprietes/properties"), "Fichier configuration");
 	             } catch(IOException e) {}
- }
+	         
 	   }
+
+	   public static void main(String[] args){
+	      
+	         // chargement des propriétés
+	         Properties prop;
+			try {
+				prop = PropertyLoader.load("fichiers/proprietes");
+				System.out.println("adresse : "+ prop.getProperty("adresse", "non spécifié"));
+		         prop.setProperty("adresse", "45");
+		         try{
+		             prop.store(new FileOutputStream("fichiers/proprietes"), "Fichier de configuration");
+		             } catch(IOException e) {}
+		         System.out.println("adresse : "+ prop.getProperty("adresse", "non spécifié"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+	         
+	         
+ 
+	         
+	      }
+	     
+		  
+		  
+		   
+		   
+	   
+	}
 	   
 	
 	

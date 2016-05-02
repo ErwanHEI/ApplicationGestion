@@ -10,6 +10,7 @@ import entitie.Evenement;
 import entitie.Produit;
 import entitie.User;
 import entitie.Virement;
+import manager.BudgetManager;
 import manager.EvenementManager;
 import manager.VirementManager;
 import modelTableau.ModeleTableauQuantiteProduitEvenement;
@@ -63,6 +64,7 @@ public class ControleurAjoutEvenement implements ActionListener{
 			listeVirement.get(i).setEventAssocie(new Evenement (idEvent, dateEvenement, dateEvenement, user, listeProduitEvenement));
 			listeVirement.get(i).setCreateur(user);
 			VirementManager.getInstance().ajoutVirement(listeVirement.get(i));
+			BudgetManager.getInstance().majMontant(listeVirement.get(i), listeVirement.get(i).getBudgetAssocie().getIdBudget());
 		}
 		
 		

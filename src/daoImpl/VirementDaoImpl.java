@@ -29,7 +29,9 @@ public class VirementDaoImpl implements VirementDao{
 			stmt.setString(4, virement.getEmetteur());
 			stmt.setString(3, virement.getRecepteur());
 			stmt.setString(5, virement.getDateVirement());
-			stmt.setInt(6, virement.getEventAssocie().getIdEvenement());
+			if(virement.getEventAssocie().getIdEvenement()!=0){
+				stmt.setInt(6, virement.getEventAssocie().getIdEvenement());
+			}
 			stmt.setInt(7, virement.getCreateur().getIdUser());
 			stmt.setInt(8, virement.getBudgetAssocie().getIdBudget());
 			stmt.setBoolean(9, virement.isEncaisse());

@@ -434,6 +434,28 @@ public class ProduitDaoImpl implements ProduitDao{
 
 
 
+	@Override
+	public Integer recupNewQuantite(Integer id) {
+		bdd.connect();
+		Integer newQuantite=null;
+		try {
+			PreparedStatement stmt = bdd.getConnection().prepareStatement("SELECT quantite FROM produit WHERE idProduit=?");
+			stmt.setInt(1, id);
+			ResultSet res=stmt.executeQuery();
+			newQuantite =res.getInt("quantite");
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bdd.close();
+		return newQuantite;
+			
+	}
+
+
+
 
 
 

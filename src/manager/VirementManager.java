@@ -47,4 +47,6 @@ public class VirementManager {
 	public List<Virement> journalVirementFiltre(String filtre){
 		return virementDao.journalVirementFiltre(filtre);
 	}
+	
+	
 }

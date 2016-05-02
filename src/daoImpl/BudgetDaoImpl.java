@@ -169,4 +169,25 @@ public class BudgetDaoImpl implements BudgetDao {
 		bdd.close();
 	}
 
+	@Override
+	public Double newMontant(Integer id) {
+		bdd.connect();
+		Double newMontant=null;
+		try {
+			PreparedStatement stmt = bdd.getConnection().prepareStatement("SELECT montantUtilise, montantPrevu FROM budget WHERE idBudget=?");
+			stmt.setInt(1, id);
+			ResultSet res=stmt.executeQuery();
+			Double montantU =res.getDouble("montantUtilise");
+			Double montantP=res.getDouble("montantPrevu");
+			newMontant=montantP-montantU;
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bdd.close();
+		return newMontant;
+	}
+
 }

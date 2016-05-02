@@ -65,4 +65,7 @@ public class ProduitManager {
 	public List<Produit> listerProduitEvenement(List<Integer> listeIdProduit){
 		return produitDao.listerProduitEvenement(listeIdProduit);
 	}
+	public Integer newQuantite(Integer id){
+		return produitDao.recupNewQuantite(id);
+	}
 }
