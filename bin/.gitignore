@@ -1,11 +1,2 @@
-/dao/
-/daoImpl/
-/daoImplTestCase/
-/entitie/
-/lanceur/
-/manager/
-/modelCombo/
-/modelFiltres/
-/modelTableau/
 /view/
-/controler/
+/daoImpl/

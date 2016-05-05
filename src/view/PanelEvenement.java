@@ -13,14 +13,20 @@ import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
+import entitie.Evenement;
 import entitie.Virement;
+import manager.EvenementManager;
 import modelTableau.ModeleTableauListeBudget;
 import modelTableau.ModeleTableauListeProduit;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -44,7 +50,9 @@ public class PanelEvenement extends JPanel{
 	
 	private List<Virement> listeVirementEvenement;
 
-	private LayoutManager panelComposantEvenement;
+	private EvenementManager evenementManager = new EvenementManager();
+	private List<Evenement> listeEvenement;
+	private Evenement evenement;
 	
 	public PanelEvenement() {
 		initialize();
@@ -67,21 +75,43 @@ public class PanelEvenement extends JPanel{
 		JPanel ongletEvenement = new JPanel();
 		ongletEvenement.setBackground(new Color(51, 102, 204));
 		tabbedPane.addTab("Ev\u00E8nements", null, ongletEvenement, null);
-		ongletEvenement.setLayout(null);
+		ongletEvenement.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panelEvenement = new JPanel();
-		panelEvenement.setBounds(0, 0, 997, 631);
-		ongletEvenement.add(panelEvenement);
-		panelEvenement.setLayout(null);
 		
-		JScrollPane scrollPaneEvenement = new JScrollPane();
-		scrollPaneEvenement.setBounds(0, 0, 997, 631);
-		panelEvenement.add(scrollPaneEvenement);
 		
 		JPanel panelScroll = new JPanel();
-		panelScroll.setLayout(new GridLayout(1, 1, 0, 0));
+		listeEvenement = evenementManager.listerEvent();
+		panelScroll.setLayout(new GridLayout(listeEvenement.size(), 1));
+		JScrollPane scrollPaneEvenement = new JScrollPane();
+		scrollPaneEvenement.getVerticalScrollBar().setUnitIncrement(30);
+		
+		for(int i=0; i<listeEvenement.size(); i++){
+			evenement = listeEvenement.get(i);
+			
+			JPanel panel = new JPanel();
+			Border border = BorderFactory.createLineBorder(Color.BLACK);
+			String nomEvenement = evenement.getNomEvenement();
+			String dateEvenement = evenement.getDateEvent();
+			
+			panel.setLayout(null);
+			panel.setPreferredSize(new Dimension(0, 200));
+			panel.setBorder(border);
+			
+			JLabel labelEvenement = new JLabel(nomEvenement);
+			labelEvenement.setFont(new Font("Tahoma", Font.PLAIN, 30));
+			labelEvenement.setBounds(15, 16, 600, 37);
+			panel.add(labelEvenement);
+			
+			JLabel labelDate = new JLabel("Date : "+dateEvenement);
+			labelDate.setFont(new Font("Tahoma", Font.PLAIN, 25));
+			labelDate.setBounds(745, 16, 240, 37);
+			panel.add(labelDate);
+			
+			panelScroll.add(panel);
+		}
 		
 		scrollPaneEvenement.setViewportView(panelScroll);
+		ongletEvenement.add(scrollPaneEvenement, BorderLayout.CENTER);
 		
 		
 /*----------------------------------------------------------------------------------------------
