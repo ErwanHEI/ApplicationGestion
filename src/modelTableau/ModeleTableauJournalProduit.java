@@ -57,6 +57,14 @@ public class ModeleTableauJournalProduit extends AbstractTableModel {
 	  
 	        fireTableRowsDeleted(rowIndex, rowIndex);
 	    }
+	    
+	    public void clear(){
+	    	int size = listeModifProduit.size();
+	    	for(int i=0; i<size; i++){
+	    		listeModifProduit.remove(0);
+	            fireTableRowsDeleted(0, 0);
+	    	}
+	    }
 
 		public ProduitManager getProduitManager() {
 			return produitManager;

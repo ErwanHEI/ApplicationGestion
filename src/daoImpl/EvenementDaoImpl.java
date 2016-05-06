@@ -86,7 +86,7 @@ public class EvenementDaoImpl implements EvenementDao{
 					String name=res1.getString("nomProduit");
 					Integer idProduit=res1.getInt("idProduit");
 					String categorie=res1.getString("categorie");
-					Integer quantite=res1.getInt("quantite");
+					//Integer quantite=res1.getInt("quantite");
 					Double prixU=res1.getDouble("prixU");
 					Integer quantiteNecessaire=res1.getInt("quantiteNec");
 					Produit produit=new Produit(idProduit,name, categorie,prixU, quantiteNecessaire,null,null,null);

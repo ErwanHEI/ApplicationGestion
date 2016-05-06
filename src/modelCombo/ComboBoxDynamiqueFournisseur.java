@@ -31,8 +31,8 @@ public class ComboBoxDynamiqueFournisseur implements ActionListener{
 	public JComboBox ComboxBoxDynamiqueFournisseur(){
 		liste=FournisseurManager.getInstance().listerFournisseur();
 		Vector model = new Vector<>();
-		model.add(new Fournisseur(0, "", ""));
-		model.add(new Fournisseur(1, "AJOUTER UN NOUVEAU FOURNISSEUR", ""));
+		model.add(new Fournisseur(1000000000, "", ""));
+		model.add(new Fournisseur(0, "AJOUTER UN NOUVEAU FOURNISSEUR", ""));
 		for(int i=0;i<liste.size();i++){
 			model.addElement(liste.get(i));
 		}
@@ -51,7 +51,7 @@ public class ComboBoxDynamiqueFournisseur implements ActionListener{
 		fournisseurSelec = (Fournisseur) comboBox.getSelectedItem();
         System.out.println( fournisseurSelec.getIdFournisseur() + " : " + fournisseurSelec.getNomFournisseur());
 		
-        if(fournisseurSelec.getIdFournisseur()==1){
+        if(fournisseurSelec.getIdFournisseur()==0){
         	fenAjoutFournisseur = new AjoutFournisseur();
         	fenAjoutFournisseur.getBoutonAjouterNouveauFournisseur().addActionListener(new ControlerAjoutFournisseur(fenAjoutFournisseur));
         }

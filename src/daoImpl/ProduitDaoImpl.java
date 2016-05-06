@@ -89,7 +89,7 @@ public class ProduitDaoImpl implements ProduitDao{
 				PreparedStatement stmt1 = bdd.getConnection().prepareStatement("SELECT * FROM user WHERE idUser=?");
 				stmt1.setInt(1, idCreateur);
 				ResultSet res2=stmt1.executeQuery();
-				//User createur=map(res2);
+				User createur=map(res2);
 				
 				
 				Produit produit=new Produit(idProduit,name, categorie,prixU, quantite,stockage,fournisseur,null);
@@ -181,7 +181,7 @@ public class ProduitDaoImpl implements ProduitDao{
 					Integer quantite=res.getInt("quantite");
 					Double prixU=res.getDouble("prixU");
 					Integer idFournisseur=res.getInt("idFournisseur");
-					Integer idCreateur=res.getInt("idUser");
+					//Integer idCreateur=res.getInt("idUser");
 					
 					Integer idStockage=res.getInt("idStockage");
 					String localisation=res.getString("localisation");
@@ -214,14 +214,14 @@ public class ProduitDaoImpl implements ProduitDao{
 	}
 	
 	
-	/*private static User map(ResultSet resultSet) throws SQLException {
+	private static User map(ResultSet resultSet) throws SQLException {
 		User utilisateur = new User();
 		utilisateur.setIdUser(resultSet.getInt("idUser"));
 		utilisateur.setEmail(resultSet.getString("email"));
 		utilisateur.setMdp(resultSet.getString("mdp"));
 		utilisateur.setNom(resultSet.getString("nomUser"));
 		return utilisateur;
-	}*/
+	}
 
 
 

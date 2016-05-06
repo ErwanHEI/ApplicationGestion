@@ -38,30 +38,33 @@ public class Fenetre {
     private PanelEvenement panelEvenement;
     private User userActuel;
     
+	private String html1 = "<html><body style = 'margin:0;font-size:1.1em;font-family:Verdana'>";
+    private String html2 =  "</body></html>";
+    
     JMenuBar menuBar = new JMenuBar();
     
-    JMenu mnNewMenu = new JMenu("Fichier");
+    JMenu mnNewMenu = new JMenu(html1+"Fichier"+html2);
 	JMenuItem mntmNewMenuItem = new JMenuItem("Imprimer l'\u00E9tat des stocks");
 	JMenuItem mntmDconnexion = new JMenuItem("D\u00E9connexion");
 	
 	
-	JMenu mnAdministrationDesComptes = new JMenu("Administration des comptes");
+	JMenu mnAdministrationDesComptes = new JMenu(html1+"Administration des comptes"+html2);
 	JMenuItem mntmCrerUnNouveau = new JMenuItem("Cr\u00E9er un nouveau compte");
 	JMenuItem mntmModifierVotreMot = new JMenuItem("Modifier votre mot de passe");
 	
-	JMenu mnStocks = new JMenu("Stocks");
+	JMenu mnStocks = new JMenu(html1+"Stocks"+html2);
 	JMenuItem mntmStocks=new JMenuItem("Consulter et gérer les stocks");
 	
 	
-	JMenu mnBudgets = new JMenu("Budgets");
+	JMenu mnBudgets = new JMenu(html1+"Budgets"+html2);
 	JMenuItem mntmBudget=new JMenuItem("Consulter et gérer le budget");
 	
 	
-	JMenu mnEvenements = new JMenu("Evènements");
+	JMenu mnEvenements = new JMenu(html1+"Evènements"+html2);
 	JMenuItem mntmEvenements = new JMenuItem("Consulter et gérer les évènements");
 		
 	
-	JMenu mnAide = new JMenu("Aide");	
+	JMenu mnAide = new JMenu(html1+"Aide"+html2);	
 	JMenuItem mntmConsulterSurPdf = new JMenuItem("Consulter sur PDF");
     
     
