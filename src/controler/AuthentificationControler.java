@@ -5,13 +5,16 @@ import java.awt.event.ActionListener;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.swing.JOptionPane;
 
 import entitie.User;
+import entitie.Virement;
 import manager.UserManager;
+import manager.VirementManager;
 import view.Authentification;
 import view.Fenetre;
 import view.PanelProduit;
@@ -61,7 +64,6 @@ public class AuthentificationControler implements ActionListener{
 						Fenetre fen=new Fenetre();
 						fen.setUserActuel(userX);
 						
-						
 						PanelProduit pan =new PanelProduit();
 						fen.execute();
 						fen.changerPanelStock(pan);
@@ -70,6 +72,7 @@ public class AuthentificationControler implements ActionListener{
 						fen.getPanelProduit().getBoutonAjouterProduit().addActionListener(new ControleurAjoutProduit(fen,pan));
 						
 						fen.getMntmDconnexion().addActionListener(new BarreMenuControle(fen));
+						fen.getMntmParametrage().addActionListener(new BarreMenuControle(fen));
 						fen.getMntmBudget().addActionListener(new BarreMenuControle(fen));
 						fen.getMntmStocks().addActionListener(new BarreMenuControle(fen));
 						fen.getMntmEvenements().addActionListener(new BarreMenuControle(fen));

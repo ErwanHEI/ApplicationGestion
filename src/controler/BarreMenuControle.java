@@ -13,6 +13,7 @@ import view.Fenetre;
 import view.PanelBudget;
 import view.PanelEvenement;
 import view.PanelProduit;
+import view.Parametrage;
 
 public class BarreMenuControle implements ActionListener{
 	
@@ -71,6 +72,12 @@ public class BarreMenuControle implements ActionListener{
 					 } catch (IOException ex) {
 					 ex.printStackTrace();
 					 }
+			}
+			
+			if(e.getSource()==fen.getMntmParametrage()){
+				Parametrage param=new Parametrage();
+				param.getBoutonParametrer().addActionListener(new ParametrageControleur(param));
+				
 			}
 		
 	}

@@ -78,6 +78,14 @@ public class ModeleTableauJournalBudget extends AbstractTableModel {
 		public String[] getEntetes() {
 			return entetes;
 		}
+
+		public void clear() {
+			int size = listeJournalVirement.size();
+	    	for(int i=0; i<size; i++){
+	    		listeJournalVirement.remove(0);
+	            fireTableRowsDeleted(0, 0);
+	    	}			
+		}
 	    
 	    
 

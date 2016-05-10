@@ -46,6 +46,7 @@ public class Fenetre {
     JMenu mnNewMenu = new JMenu(html1+"Fichier"+html2);
 	JMenuItem mntmNewMenuItem = new JMenuItem("Imprimer l'\u00E9tat des stocks");
 	JMenuItem mntmDconnexion = new JMenuItem("D\u00E9connexion");
+	JMenuItem mntmParametrage=new JMenuItem("Parametrer");
 	
 	
 	JMenu mnAdministrationDesComptes = new JMenu(html1+"Administration des comptes"+html2);
@@ -106,6 +107,7 @@ public class Fenetre {
 public void execute(){
 	if(userActuel.getTypeUser()==1){
 		mnAdministrationDesComptes.add(mntmCrerUnNouveau);
+		mnNewMenu.add(mntmParametrage);
 	}
 	fen.setTitle("Outil de gestion----Connecté en tant "+userActuel.getEmail());
 	fen.getContentPane().setLayout(new BorderLayout());
@@ -363,6 +365,18 @@ public JMenuItem getMntmEvenements() {
 public void setMntmEvenements(JMenuItem mntmEvenements) {
 	this.mntmEvenements = mntmEvenements;
 }
+
+
+public JMenuItem getMntmParametrage() {
+	return mntmParametrage;
+}
+
+
+public void setMntmParametrage(JMenuItem mntmParametrage) {
+	this.mntmParametrage = mntmParametrage;
+}
+
+
 
 
 
