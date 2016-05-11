@@ -28,7 +28,7 @@ public class ComboxBoxDynamiqueStockage implements ActionListener{
 	public JComboBox ComboxBoxDynamiqueLieuStockage(){
 		liste=StockageManager.getInstance().listerStockage();
 		Vector model = new Vector<>();
-		model.add(new Stockage(0, "", "", 0));
+		model.add(new Stockage(0, "", "Sélectionner un lieu de stockage", 0));
 		for(int i=0;i<liste.size();i++){
 			model.addElement(liste.get(i));
 		}

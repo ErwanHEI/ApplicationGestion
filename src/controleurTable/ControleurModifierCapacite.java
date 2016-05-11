@@ -1,11 +1,14 @@
 package controleurTable;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
+import entitie.Stockage;
 import manager.StockageManager;
 import modelTableau.ModeleTableauLieuStockage;
 import view.PanelProduit;
@@ -17,6 +20,7 @@ public class ControleurModifierCapacite extends AbstractAction{
 	private JTable tableau;
 	private ModeleTableauLieuStockage modeleListeStockage;
 	private StockageManager stockageManager = new StockageManager();
+    private List<Stockage> listeStockage = new ArrayList<Stockage>();
 	
 	public ControleurModifierCapacite(PanelProduit panelProduit){
 		super();
@@ -39,11 +43,9 @@ public class ControleurModifierCapacite extends AbstractAction{
 		        	cellule = (int) tableau.getValueAt(row[i], 4);
 		        	stockageManager.majModifierCapacite(newCapacite, cellule);
 		        }
-		        for(int i = row.length - 1; i >= 0; i--){
-		        	tableau.editCellAt(row[i], 3);
-		        	tableau.setValueAt(newCapacite, row[i], 3);
-		        	modeleListeStockage.updateCell(row[i]);
-		        } 
+		        modeleListeStockage.clear();
+		        listeStockage = stockageManager.listerStockage();
+		        modeleListeStockage.setListeStockage(listeStockage);
 	        }
         	else{
 	        	JOptionPane.showMessageDialog(null,

@@ -16,7 +16,7 @@ public class ModeleTableauLieuStockage extends AbstractTableModel {
 	private StockageManager stockageManager = new StockageManager();
     private List<Stockage> listeStockage = new ArrayList<Stockage>();
  
-    private final String[] entetes = {"Nom", "Localisation", "Etat des stocks", "Capacité libre (en %)", "Id Stockage"};
+    private final String[] entetes = {"Nom", "Localisation", "Etat des stocks", "Remplissage (en %)", "Id Stockage"};
  
     public ModeleTableauLieuStockage() {
         super();
@@ -42,13 +42,13 @@ public class ModeleTableauLieuStockage extends AbstractTableModel {
             case 1:
                 return listeStockage.get(rowIndex).getLocalisation();
             case 2:
-            	if(100-listeStockage.get(rowIndex).getRemplissage()<33.3){
+            	if(listeStockage.get(rowIndex).getRemplissage()<33.3){
             		return Color.GREEN;
             	}
-            	if(100-listeStockage.get(rowIndex).getRemplissage()>=33.3&&100-listeStockage.get(rowIndex).getRemplissage()<66.6){
+            	if(listeStockage.get(rowIndex).getRemplissage()>=33.3&&listeStockage.get(rowIndex).getRemplissage()<66.6){
             		return Color.YELLOW;
             	}
-            	if(100-listeStockage.get(rowIndex).getRemplissage()>=66.6){
+            	if(listeStockage.get(rowIndex).getRemplissage()>=66.6){
             		return Color.RED;
             	}
             case 3:
@@ -76,16 +76,22 @@ public class ModeleTableauLieuStockage extends AbstractTableModel {
     	fireTableCellUpdated(rowIndex, columnIndex);
     }
     
-    public void updateCell(int rowIndex) {
-    	
-    	fireTableCellUpdated(rowIndex,3);
-    }
-    
+   
     public void removeStockage(int rowIndex) {
     	listeStockage.remove(rowIndex);
         fireTableRowsDeleted(rowIndex, rowIndex);
     }
-
+    
+    
+    public void clear(){
+    	int size = listeStockage.size();
+    	for(int i=0; i<size; i++){
+    		listeStockage.remove(0);
+            fireTableRowsDeleted(0, 0);
+    	}
+    }
+    
+    
 	public StockageManager getStockageManager() {
 		return stockageManager;
 	}

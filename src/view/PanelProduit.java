@@ -18,6 +18,9 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
@@ -26,6 +29,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+
 import java.awt.GridBagConstraints;
 import javax.swing.ListSelectionModel;
 import java.awt.Component;
@@ -70,6 +75,8 @@ public class PanelProduit extends JPanel{
 	private ComboxBoxDynamiqueModifierProduit comboxBoxDynamiqueModifierProduit=new ComboxBoxDynamiqueModifierProduit();
 	private ComboBoxDynamiqueFournisseur comboBoxDynamiqueFournisseur=new ComboBoxDynamiqueFournisseur();
 	
+	private JComboBox comboFournisseur;
+	
 	private FiltreProduit filtreProduit = new FiltreProduit();
 	private FiltreJournalProduit filtreJournalProduit = new FiltreJournalProduit();
 	
@@ -86,6 +93,7 @@ public class PanelProduit extends JPanel{
 	private JButton boutonModifierProduit;
 	private JPanel panelLieuStockage;
 	private JButton boutonAjouterLieu;
+
 	private JButton boutonRechercher;
 	
 	private String html1 = "<html><body style = 'margin:0;padding-top:5px;padding-bottom:5px;padding-left:10px;font-size:1.4em;font-family:Verdana'>";
@@ -115,12 +123,12 @@ public class PanelProduit extends JPanel{
 		this.add(tabbedPane,BorderLayout.CENTER);
 		
 		JPanel ongletProduit = new JPanel();
-		tabbedPane.addTab("Produit", null, ongletProduit, null);
+		tabbedPane.addTab(html1+"Produit"+html2, new ImageIcon("../ApplicationGestion/src/image/produit.png"), ongletProduit, null);
 		ongletProduit.setLayout(null);
 		
 		JLabel rechercherProduit = new JLabel("Rechercher un produit :");
 		rechercherProduit.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		rechercherProduit.setBounds(101, 48, 215, 20);
+		rechercherProduit.setBounds(101, 47, 215, 27);
 		ongletProduit.add(rechercherProduit);
 		
 		champRecherche = new JTextField();
@@ -128,13 +136,14 @@ public class PanelProduit extends JPanel{
 		ongletProduit.add(champRecherche);
 		champRecherche.setColumns(10);
 		
+		JButton boutonRechercher = new JButton("Rechercher");
 		boutonRechercher = new JButton("Rechercher");
 		boutonRechercher.setBounds(696, 46, 200, 29);
 		ongletProduit.add(boutonRechercher);
 		
 		JLabel filtres = new JLabel("Filtres :");
 		filtres.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		filtres.setBounds(243, 106, 73, 20);
+		filtres.setBounds(243, 106, 73, 25);
 		ongletProduit.add(filtres);
 		
 		JComboBox comboBoxFiltres = new JComboBox();
@@ -171,11 +180,11 @@ public class PanelProduit extends JPanel{
 		
 		
 		JTabbedPane ongletGestion = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("Gestion", null, ongletGestion, null);
+		tabbedPane.addTab(html1+"Gestion"+html2, new ImageIcon("../ApplicationGestion/src/image/gestion.png"), ongletGestion, null);
 		
 		JPanel panelGestionProduit = new JPanel();
 		panelGestionProduit.setBackground(new Color(51, 102, 204));
-		ongletGestion.addTab("Gestion des produits", null, panelGestionProduit, null);
+		ongletGestion.addTab(html3+"Gestion des produits"+html2, null, panelGestionProduit, null);
 		panelGestionProduit.setLayout(null);
 		
 		JPanel panelAjoutProduit = new JPanel();
@@ -194,9 +203,50 @@ public class PanelProduit extends JPanel{
 		labelReferenceProduit.setBounds(68, 90, 102, 24);
 		panelAjoutProduit.add(labelReferenceProduit);
 		
-		champCategorie = new JTextField();
+		champCategorie = new JTextField("Boissons, vêtements, ...");
+		champCategorie.setForeground(Color.gray);
 		champCategorie.setColumns(10);
 		champCategorie.setBounds(185, 91, 250, 26);
+		champCategorie.addMouseListener(new MouseListener() {
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	//Empêche de sélectionner le texte grissé et positonne le curseur au début
+		    	if(champCategorie.getSelectedText().isEmpty()==false && champCategorie.getText().equals("Boissons, vêtements, ...")){
+		    		champCategorie.setCaretPosition(0);
+		    	}
+		    }         
+		    @Override
+		    public void mousePressed(MouseEvent e) {}          
+		    @Override
+		    public void mouseExited(MouseEvent e) {}           
+		    @Override
+		    public void mouseEntered(MouseEvent e) {}          
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		    	//Positionne le curseur au début si l'utilisateur n'a rien tappé
+		    	if(champCategorie.getText().equals("Boissons, vêtements, ...")){
+		    		champCategorie.setCaretPosition(0);
+		    	}		        	
+		    }
+		});
+		champCategorie.addKeyListener(new KeyAdapter(){
+			public void keyPressed(java.awt.event.KeyEvent e) {   
+				//JTextField.getText() contient le texte présent dans le JTextField avant le relachement de la touche
+				if(champCategorie.getText().equals("Boissons, vêtements, ...") && e.getKeyChar()!=e.VK_BACK_SPACE){
+					champCategorie.setText("");
+					champCategorie.getFont().deriveFont(Font.PLAIN);
+					champCategorie.setForeground(Color.black);
+				}
+			}
+			public void keyReleased(java.awt.event.KeyEvent e) {
+				//JTextField.getText() contient le texte présent dans le JTextField après le relachement de la touche
+				if(champCategorie.getText().equals("")){
+					champCategorie.setText("Boissons, vêtements, ...");
+					champCategorie.setForeground(Color.gray);
+					champCategorie.setCaretPosition(0);
+				}	
+			}
+		});
 		panelAjoutProduit.add(champCategorie);
 		
 		JLabel labelNomProduit = new JLabel("Nom :");
@@ -205,9 +255,51 @@ public class PanelProduit extends JPanel{
 		labelNomProduit.setBounds(116, 130, 54, 24);
 		panelAjoutProduit.add(labelNomProduit);
 		
-		champNomProduit = new JTextField();
+		champNomProduit = new JTextField("Pierre, papier, ciseaux, ...");
+		champNomProduit.setForeground(Color.gray);
 		champNomProduit.setColumns(10);
 		champNomProduit.setBounds(185, 131, 250, 26);
+		champNomProduit.addMouseListener(new MouseListener() {
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	//Empêche de sélectionner le texte grissé et positonne le curseur au début
+		    	if(champNomProduit.getSelectedText().isEmpty()==false && champNomProduit.getText().equals("Pierre, papier, ciseaux, ...")){
+		    		champNomProduit.setCaretPosition(0);
+		    	}
+		    }         
+		    @Override
+		    public void mousePressed(MouseEvent e) {}          
+		    @Override
+		    public void mouseExited(MouseEvent e) {}           
+		    @Override
+		    public void mouseEntered(MouseEvent e) {}          
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		    	//Positionne le curseur au début si l'utilisateur n'a rien tappé
+		    	if(champNomProduit.getText().equals("Pierre, papier, ciseaux, ...")){
+		    		champNomProduit.setCaretPosition(0);
+		    	}		        	
+		    }
+		});
+		champNomProduit.addKeyListener(new KeyAdapter(){
+			public void keyPressed(java.awt.event.KeyEvent e) {   
+				//JTextField.getText() contient le texte présent dans le JTextField avant le relachement de la touche
+				if(champNomProduit.getText().equals("Pierre, papier, ciseaux, ...") && e.getKeyChar()!=e.VK_BACK_SPACE){
+					champNomProduit.setText("");
+					champNomProduit.getFont().deriveFont(Font.PLAIN);
+					champNomProduit.setForeground(Color.black);
+				}
+			}
+			public void keyReleased(java.awt.event.KeyEvent e) {
+				//JTextField.getText() contient le texte présent dans le JTextField après le relachement de la touche
+				if(champNomProduit.getText().equals("")){
+					champNomProduit.setText("Pierre, papier, ciseaux, ...");
+					champNomProduit.setForeground(Color.gray);
+					champNomProduit.setCaretPosition(0);
+				}	
+			}
+		});
+		
 		panelAjoutProduit.add(champNomProduit);
 		
 		JLabel labelPrixUnitaireProduit = new JLabel("Prix unitaire :");
@@ -216,9 +308,50 @@ public class PanelProduit extends JPanel{
 		labelPrixUnitaireProduit.setBounds(50, 170, 120, 24);
 		panelAjoutProduit.add(labelPrixUnitaireProduit);
 		
-		champPrixUnitaireProduit = new JTextField();
+		champPrixUnitaireProduit = new JTextField("Veuillez utiliser le point pour les centimes");
+		champPrixUnitaireProduit.setForeground(Color.gray);
 		champPrixUnitaireProduit.setColumns(10);
 		champPrixUnitaireProduit.setBounds(185, 171, 250, 26);
+		champPrixUnitaireProduit.addMouseListener(new MouseListener() {
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	//Empêche de sélectionner le texte grissé et positonne le curseur au début
+		    	if(champPrixUnitaireProduit.getSelectedText().isEmpty()==false && champPrixUnitaireProduit.getText().equals("Veuillez utiliser le point pour les centimes")){
+		    		champPrixUnitaireProduit.setCaretPosition(0);
+		    	}
+		    }         
+		    @Override
+		    public void mousePressed(MouseEvent e) {}          
+		    @Override
+		    public void mouseExited(MouseEvent e) {}           
+		    @Override
+		    public void mouseEntered(MouseEvent e) {}          
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		    	//Positionne le curseur au début si l'utilisateur n'a rien tappé
+		    	if(champPrixUnitaireProduit.getText().equals("Veuillez utiliser le point pour les centimes")){
+		    		champPrixUnitaireProduit.setCaretPosition(0);
+		    	}		        	
+		    }
+		});
+		champPrixUnitaireProduit.addKeyListener(new KeyAdapter(){
+			public void keyPressed(java.awt.event.KeyEvent e) {   
+				//JTextField.getText() contient le texte présent dans le JTextField avant le relachement de la touche
+				if(champPrixUnitaireProduit.getText().equals("Veuillez utiliser le point pour les centimes") && e.getKeyChar()!=e.VK_BACK_SPACE){
+					champPrixUnitaireProduit.setText("");
+					champPrixUnitaireProduit.getFont().deriveFont(Font.PLAIN);
+					champPrixUnitaireProduit.setForeground(Color.black);
+				}
+			}
+			public void keyReleased(java.awt.event.KeyEvent e) {
+				//JTextField.getText() contient le texte présent dans le JTextField après le relachement de la touche
+				if(champPrixUnitaireProduit.getText().equals("")){
+					champPrixUnitaireProduit.setText("Veuillez utiliser le point pour les centimes");
+					champPrixUnitaireProduit.setForeground(Color.gray);
+					champPrixUnitaireProduit.setCaretPosition(0);
+				}	
+			}
+		});
 		panelAjoutProduit.add(champPrixUnitaireProduit);
 		
 		JLabel labelQuantiteProduit = new JLabel("Quantit\u00E9 :");
@@ -227,9 +360,50 @@ public class PanelProduit extends JPanel{
 		labelQuantiteProduit.setBounds(543, 90, 90, 24);
 		panelAjoutProduit.add(labelQuantiteProduit);
 		
-		champQuantiteProduit = new JTextField();
+		champQuantiteProduit = new JTextField("Veuillez entrer une valeur entière");
+		champQuantiteProduit.setForeground(Color.gray);
 		champQuantiteProduit.setColumns(10);
 		champQuantiteProduit.setBounds(648, 91, 250, 26);
+		champQuantiteProduit.addMouseListener(new MouseListener() {
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	//Empêche de sélectionner le texte grissé et positonne le curseur au début
+		    	if(champQuantiteProduit.getSelectedText().isEmpty()==false && champQuantiteProduit.getText().equals("Veuillez entrer une valeur entière")){
+		    		champQuantiteProduit.setCaretPosition(0);
+		    	}
+		    }         
+		    @Override
+		    public void mousePressed(MouseEvent e) {}          
+		    @Override
+		    public void mouseExited(MouseEvent e) {}           
+		    @Override
+		    public void mouseEntered(MouseEvent e) {}          
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		    	//Positionne le curseur au début si l'utilisateur n'a rien tappé
+		    	if(champQuantiteProduit.getText().equals("Veuillez entrer une valeur entière")){
+		    		champQuantiteProduit.setCaretPosition(0);
+		    	}		        	
+		    }
+		});
+		champQuantiteProduit.addKeyListener(new KeyAdapter(){
+			public void keyPressed(java.awt.event.KeyEvent e) {   
+				//JTextField.getText() contient le texte présent dans le JTextField avant le relachement de la touche
+				if(champQuantiteProduit.getText().equals("Veuillez entrer une valeur entière") && e.getKeyChar()!=e.VK_BACK_SPACE){
+					champQuantiteProduit.setText("");
+					champQuantiteProduit.getFont().deriveFont(Font.PLAIN);
+					champQuantiteProduit.setForeground(Color.black);
+				}
+			}
+			public void keyReleased(java.awt.event.KeyEvent e) {
+				//JTextField.getText() contient le texte présent dans le JTextField après le relachement de la touche
+				if(champQuantiteProduit.getText().equals("")){
+					champQuantiteProduit.setText("Veuillez entrer une valeur entière");
+					champQuantiteProduit.setForeground(Color.gray);
+					champQuantiteProduit.setCaretPosition(0);
+				}	
+			}
+		});
 		panelAjoutProduit.add(champQuantiteProduit);
 		
 		JLabel labelFournisseurProduit = new JLabel("Fournisseur :");
@@ -238,6 +412,9 @@ public class PanelProduit extends JPanel{
 		labelFournisseurProduit.setBounds(518, 130, 115, 24);
 		panelAjoutProduit.add(labelFournisseurProduit);
 		
+		comboFournisseur = new JComboBox();
+		comboFournisseur=comboBoxDynamiqueFournisseur.ComboxBoxDynamiqueFournisseur();
+
 		JComboBox comboFournisseur=new JComboBox();
 		comboFournisseur=comboBoxDynamiqueFournisseur.ComboxBoxDynamiqueFournisseur();
 		comboFournisseur.setBounds(648, 131, 250, 26);
@@ -286,9 +463,50 @@ public class PanelProduit extends JPanel{
 		labelNouvelleQuantite.setBounds(202, 69, 170, 24);
 		panelModifierProduit.add(labelNouvelleQuantite);
 		
-		champNouvelleQuantite = new JTextField();
+		champNouvelleQuantite = new JTextField("Veuillez entrer une valeur entière");
+		champNouvelleQuantite.setForeground(Color.gray);
 		champNouvelleQuantite.setColumns(10);
 		champNouvelleQuantite.setBounds(387, 70, 400, 26);
+		champNouvelleQuantite.addMouseListener(new MouseListener() {
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	//Empêche de sélectionner le texte grissé et positonne le curseur au début
+		    	if(champNouvelleQuantite.getSelectedText().isEmpty()==false && champNouvelleQuantite.getText().equals("Veuillez entrer une valeur entière")){
+		    		champNouvelleQuantite.setCaretPosition(0);
+		    	}
+		    }         
+		    @Override
+		    public void mousePressed(MouseEvent e) {}          
+		    @Override
+		    public void mouseExited(MouseEvent e) {}           
+		    @Override
+		    public void mouseEntered(MouseEvent e) {}          
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		    	//Positionne le curseur au début si l'utilisateur n'a rien tappé
+		    	if(champNouvelleQuantite.getText().equals("Veuillez entrer une valeur entière")){
+		    		champNouvelleQuantite.setCaretPosition(0);
+		    	}		        	
+		    }
+		});
+		champNouvelleQuantite.addKeyListener(new KeyAdapter(){
+			public void keyPressed(java.awt.event.KeyEvent e) {   
+				//JTextField.getText() contient le texte présent dans le JTextField avant le relachement de la touche
+				if(champNouvelleQuantite.getText().equals("Veuillez entrer une valeur entière") && e.getKeyChar()!=e.VK_BACK_SPACE){
+					champNouvelleQuantite.setText("");
+					champNouvelleQuantite.getFont().deriveFont(Font.PLAIN);
+					champNouvelleQuantite.setForeground(Color.black);
+				}
+			}
+			public void keyReleased(java.awt.event.KeyEvent e) {
+				//JTextField.getText() contient le texte présent dans le JTextField après le relachement de la touche
+				if(champNouvelleQuantite.getText().equals("")){
+					champNouvelleQuantite.setText("Veuillez entrer une valeur entière");
+					champNouvelleQuantite.setForeground(Color.gray);
+					champNouvelleQuantite.setCaretPosition(0);
+				}	
+			}
+		});
 		panelModifierProduit.add(champNouvelleQuantite);
 		
 		JLabel labelNouveauPrix = new JLabel("Nouveau prix unitaire :");
@@ -297,9 +515,50 @@ public class PanelProduit extends JPanel{
 		labelNouveauPrix.setBounds(168, 109, 204, 24);
 		panelModifierProduit.add(labelNouveauPrix);
 		
-		champNouveauPrix = new JTextField();
+		champNouveauPrix = new JTextField("Veuillez utiliser le point pour les centimes");
+		champNouveauPrix.setForeground(Color.gray);
 		champNouveauPrix.setColumns(10);
 		champNouveauPrix.setBounds(387, 110, 400, 26);
+		champNouveauPrix.addMouseListener(new MouseListener() {
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	//Empêche de sélectionner le texte grissé et positonne le curseur au début
+		    	if(champNouveauPrix.getSelectedText().isEmpty()==false && champNouveauPrix.getText().equals("Veuillez utiliser le point pour les centimes")){
+		    		champNouveauPrix.setCaretPosition(0);
+		    	}
+		    }         
+		    @Override
+		    public void mousePressed(MouseEvent e) {}          
+		    @Override
+		    public void mouseExited(MouseEvent e) {}           
+		    @Override
+		    public void mouseEntered(MouseEvent e) {}          
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		    	//Positionne le curseur au début si l'utilisateur n'a rien tappé
+		    	if(champNouveauPrix.getText().equals("Veuillez utiliser le point pour les centimes")){
+		    		champNouveauPrix.setCaretPosition(0);
+		    	}		        	
+		    }
+		});
+		champNouveauPrix.addKeyListener(new KeyAdapter(){
+			public void keyPressed(java.awt.event.KeyEvent e) {   
+				//JTextField.getText() contient le texte présent dans le JTextField avant le relachement de la touche
+				if(champNouveauPrix.getText().equals("Veuillez utiliser le point pour les centimes") && e.getKeyChar()!=e.VK_BACK_SPACE){
+					champNouveauPrix.setText("");
+					champNouveauPrix.getFont().deriveFont(Font.PLAIN);
+					champNouveauPrix.setForeground(Color.black);
+				}
+			}
+			public void keyReleased(java.awt.event.KeyEvent e) {
+				//JTextField.getText() contient le texte présent dans le JTextField après le relachement de la touche
+				if(champNouveauPrix.getText().equals("")){
+					champNouveauPrix.setText("Veuillez utiliser le point pour les centimes");
+					champNouveauPrix.setForeground(Color.gray);
+					champNouveauPrix.setCaretPosition(0);
+				}	
+			}
+		});
 		panelModifierProduit.add(champNouveauPrix);
 		
 		JLabel labelNouveauLieuStockage = new JLabel("Nouveau lieu de stockage :");
@@ -313,10 +572,51 @@ public class PanelProduit extends JPanel{
 		labelCommentaire.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		labelCommentaire.setBounds(230, 186, 142, 24);
 		panelModifierProduit.add(labelCommentaire);
-		
-		champCommentaire = new JTextField();
+
+		champCommentaire = new JTextField("Votre commentaire sera afficher dans le journal");
+		champCommentaire.setForeground(Color.gray);
 		champCommentaire.setColumns(10);
 		champCommentaire.setBounds(387, 187, 400, 26);
+		champCommentaire.addMouseListener(new MouseListener() {
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	//Empêche de sélectionner le texte grissé et positonne le curseur au début
+		    	if(champCommentaire.getSelectedText().isEmpty()==false && champCommentaire.getText().equals("Votre commentaire sera afficher dans le journal")){
+		    		champCommentaire.setCaretPosition(0);
+		    	}
+		    }         
+		    @Override
+		    public void mousePressed(MouseEvent e) {}          
+		    @Override
+		    public void mouseExited(MouseEvent e) {}           
+		    @Override
+		    public void mouseEntered(MouseEvent e) {}          
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		    	//Positionne le curseur au début si l'utilisateur n'a rien tappé
+		    	if(champCommentaire.getText().equals("Votre commentaire sera afficher dans le journal")){
+		    		champCommentaire.setCaretPosition(0);
+		    	}		        	
+		    }
+		});
+		champCommentaire.addKeyListener(new KeyAdapter(){
+			public void keyPressed(java.awt.event.KeyEvent e) {   
+				//JTextField.getText() contient le texte présent dans le JTextField avant le relachement de la touche
+				if(champCommentaire.getText().equals("Votre commentaire sera afficher dans le journal") && e.getKeyChar()!=e.VK_BACK_SPACE){
+					champCommentaire.setText("");
+					champCommentaire.getFont().deriveFont(Font.PLAIN);
+					champCommentaire.setForeground(Color.black);
+				}
+			}
+			public void keyReleased(java.awt.event.KeyEvent e) {
+				//JTextField.getText() contient le texte présent dans le JTextField après le relachement de la touche
+				if(champCommentaire.getText().equals("")){
+					champCommentaire.setText("Votre commentaire sera afficher dans le journal");
+					champCommentaire.setForeground(Color.gray);
+					champCommentaire.setCaretPosition(0);
+				}	
+			}
+		});
 		panelModifierProduit.add(champCommentaire);
 		
 		JComboBox comboBoxNouveauLieu = new JComboBox();
@@ -337,7 +637,8 @@ public class PanelProduit extends JPanel{
 		
 		JPanel panelGestionLieuStockage = new JPanel();
 		panelGestionLieuStockage.setBackground(new Color(51, 102, 204));
-		ongletGestion.addTab("Gestion des lieux de stockage", null, panelGestionLieuStockage, null);
+		
+		ongletGestion.addTab(html3+"Gestion des lieux de stockage"+html1, null, panelGestionLieuStockage, null);
 		panelGestionLieuStockage.setLayout(null);
 		
 		JPanel panelAjoutLieuStockage = new JPanel();
@@ -356,9 +657,50 @@ public class PanelProduit extends JPanel{
 		labelNomLieu.setBounds(319, 69, 54, 24);
 		panelAjoutLieuStockage.add(labelNomLieu);
 		
-		champNomLieu = new JTextField();
+		champNomLieu = new JTextField("Nom du lieu de stockage");
+		champNomLieu.setForeground(Color.gray);
 		champNomLieu.setColumns(10);
 		champNomLieu.setBounds(388, 70, 400, 26);
+		champNomLieu.addMouseListener(new MouseListener() {
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	//Empêche de sélectionner le texte grissé et positonne le curseur au début
+		    	if(champNomLieu.getSelectedText().isEmpty()==false && champNomLieu.getText().equals("Nom du lieu de stockage")){
+		    		champNomLieu.setCaretPosition(0);
+		    	}
+		    }         
+		    @Override
+		    public void mousePressed(MouseEvent e) {}          
+		    @Override
+		    public void mouseExited(MouseEvent e) {}           
+		    @Override
+		    public void mouseEntered(MouseEvent e) {}          
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		    	//Positionne le curseur au début si l'utilisateur n'a rien tappé
+		    	if(champNomLieu.getText().equals("Nom du lieu de stockage")){
+		    		champNomLieu.setCaretPosition(0);
+		    	}		        	
+		    }
+		});
+		champNomLieu.addKeyListener(new KeyAdapter(){
+			public void keyPressed(java.awt.event.KeyEvent e) {   
+				//JTextField.getText() contient le texte présent dans le JTextField avant le relachement de la touche
+				if(champNomLieu.getText().equals("Nom du lieu de stockage") && e.getKeyChar()!=e.VK_BACK_SPACE){
+					champNomLieu.setText("");
+					champNomLieu.getFont().deriveFont(Font.PLAIN);
+					champNomLieu.setForeground(Color.black);
+				}
+			}
+			public void keyReleased(java.awt.event.KeyEvent e) {
+				//JTextField.getText() contient le texte présent dans le JTextField après le relachement de la touche
+				if(champNomLieu.getText().equals("")){
+					champNomLieu.setText("Nom du lieu de stockage");
+					champNomLieu.setForeground(Color.gray);
+					champNomLieu.setCaretPosition(0);
+				}	
+			}
+		});
 		panelAjoutLieuStockage.add(champNomLieu);
 		
 		JLabel labelLocalisationLieu = new JLabel("Localisation :");
@@ -367,9 +709,50 @@ public class PanelProduit extends JPanel{
 		labelLocalisationLieu.setBounds(255, 109, 118, 24);
 		panelAjoutLieuStockage.add(labelLocalisationLieu);
 		
-		champLocalisationLieu = new JTextField();
+		champLocalisationLieu = new JTextField("Localisation du lieu de stockage");
+		champLocalisationLieu.setForeground(Color.gray);
 		champLocalisationLieu.setColumns(10);
 		champLocalisationLieu.setBounds(388, 110, 400, 26);
+		champLocalisationLieu.addMouseListener(new MouseListener() {
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	//Empêche de sélectionner le texte grissé et positonne le curseur au début
+		    	if(champLocalisationLieu.getSelectedText().isEmpty()==false && champLocalisationLieu.getText().equals("Localisation du lieu de stockage")){
+		    		champLocalisationLieu.setCaretPosition(0);
+		    	}
+		    }         
+		    @Override
+		    public void mousePressed(MouseEvent e) {}          
+		    @Override
+		    public void mouseExited(MouseEvent e) {}           
+		    @Override
+		    public void mouseEntered(MouseEvent e) {}          
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		    	//Positionne le curseur au début si l'utilisateur n'a rien tappé
+		    	if(champLocalisationLieu.getText().equals("Localisation du lieu de stockage")){
+		    		champLocalisationLieu.setCaretPosition(0);
+		    	}		        	
+		    }
+		});
+		champLocalisationLieu.addKeyListener(new KeyAdapter(){
+			public void keyPressed(java.awt.event.KeyEvent e) {   
+				//JTextField.getText() contient le texte présent dans le JTextField avant le relachement de la touche
+				if(champLocalisationLieu.getText().equals("Localisation du lieu de stockage") && e.getKeyChar()!=e.VK_BACK_SPACE){
+					champLocalisationLieu.setText("");
+					champLocalisationLieu.getFont().deriveFont(Font.PLAIN);
+					champLocalisationLieu.setForeground(Color.black);
+				}
+			}
+			public void keyReleased(java.awt.event.KeyEvent e) {
+				//JTextField.getText() contient le texte présent dans le JTextField après le relachement de la touche
+				if(champLocalisationLieu.getText().equals("")){
+					champLocalisationLieu.setText("Localisation du lieu de stockage");
+					champLocalisationLieu.setForeground(Color.gray);
+					champLocalisationLieu.setCaretPosition(0);
+				}	
+			}
+		});
 		panelAjoutLieuStockage.add(champLocalisationLieu);
 		
 		boutonAjouterLieu = new JButton("Ajouter");
@@ -395,7 +778,7 @@ public class PanelProduit extends JPanel{
 ---------------------------------------------TABLEAU DES LIEUX DE STOCKAGE----------------------
 ------------------------------------------------------------------------------------------------*/		
 		
-panelListeLieuStockage.setLayout(new BorderLayout(0, 0));
+		panelListeLieuStockage.setLayout(new BorderLayout(0, 0));
 		
 		tableauLieuStockage = new JTable(modeleLieuStockage);
 		tableauLieuStockage.setDefaultRenderer(Color.class, new ColorCellRenderer());
@@ -420,7 +803,7 @@ panelListeLieuStockage.setLayout(new BorderLayout(0, 0));
 		
 		JPanel ongletJournal = new JPanel();
 		ongletJournal.setBackground(new Color(51, 102, 204));
-		tabbedPane.addTab("Journal", null, ongletJournal, null);
+		tabbedPane.addTab(html1+"Journal"+html2, new ImageIcon("../ApplicationGestion/src/image/journal.png"), ongletJournal, null);
 		ongletJournal.setLayout(null);
 		
 		JPanel panelFiltres = new JPanel();
@@ -447,7 +830,8 @@ panelListeLieuStockage.setLayout(new BorderLayout(0, 0));
 ---------------------------------------------TABLEAU DU JOURNAL DES STOCKS----------------------
 ------------------------------------------------------------------------------------------------*/		
 		
-panelJournalStock.setLayout(new BorderLayout(0, 0));
+		panelJournalStock.setLayout(new BorderLayout(0, 0));
+		panelJournalStock.setLayout(new BorderLayout(0, 0));
 		
 		tableauJournalStock = new JTable(modeleJournalProduit);
 		tableauJournalStock.getColumnModel().getColumn(5).setMaxWidth(0);
@@ -713,6 +1097,15 @@ panelJournalStock.setLayout(new BorderLayout(0, 0));
 
 	public void setFiltreJournalProduit(FiltreJournalProduit filtreJournalProduit) {
 		this.filtreJournalProduit = filtreJournalProduit;
+	}
+
+
+	public JComboBox getComboFournisseur() {
+		return comboFournisseur;
+	}
+
+	public void setComboFournisseur(JComboBox comboFournisseur) {
+		this.comboFournisseur = comboFournisseur;
 	}
 
 	public JButton getBoutonRechercher() {

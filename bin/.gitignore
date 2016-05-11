@@ -1,8 +1,14 @@
-/view/
-/daoImpl/
-/lanceur/
 /controler/
+/controleurTable/
+/dao/
+/daoImpl/
+/daoImplTestCase/
+/entitie/
 /image/
+/lanceur/
+/manager/
 /modelCombo/
 /modelFiltres/
 /modelTableau/
+/util/
+/view/
