@@ -22,11 +22,13 @@ import modelTableau.ModeleTableauEncaissement;
 import modelTableau.ModeleTableauJournalBudget;
 import modelTableau.ModeleTableauListeBudget;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.FlowLayout;
 import javax.swing.JTable;
 
@@ -61,10 +63,19 @@ public class PanelBudget extends JPanel{
 	private JTextField champDateEncaissement;
 	private JTextField champMontantEncaissement;
 	
-
-	
 	JLabel labelErreurCreationBudget;
 	JLabel labelErreurAjoutEncaissement ;
+	
+	private String html1 = "<html><body style = 'margin:0;padding-top:5px;padding-bottom:5px;padding-left:10px;font-size:1.4em;font-family:Verdana'>";
+    private String html2 =  "</body></html>";
+
+	private int x = Toolkit.getDefaultToolkit().getScreenSize().width;
+	private int y = Toolkit.getDefaultToolkit().getScreenSize().height;
+	private double x1 = 1024;
+	private double y1 = 768;
+	private double adaptx = x/x1;
+	private double adapty = y/y1;
+	
 
 	public PanelBudget(){
 		initialize();
@@ -82,7 +93,7 @@ public class PanelBudget extends JPanel{
 		
 		JPanel panelBudget = new JPanel();
 		panelBudget.setBackground(new Color(51, 102, 204));
-		tabbedPane.addTab("Budgets", null, panelBudget, null);
+		tabbedPane.addTab(html1+"Budgets"+html2, new ImageIcon("../ApplicationGestion/src/image/budget.png"), panelBudget, null);
 		panelBudget.setLayout(null);
 		
 		JPanel panelFiltres = new JPanel();
@@ -132,7 +143,7 @@ public class PanelBudget extends JPanel{
 		
 		JPanel panelGestion = new JPanel();
 		panelGestion.setBackground(new Color(51, 102, 204));
-		tabbedPane.addTab("Gestion", null, panelGestion, null);
+		tabbedPane.addTab(html1+"Gestion"+html2, new ImageIcon("../ApplicationGestion/src/image/gestion.png"), panelGestion, null);
 		panelGestion.setLayout(null);
 		
 		JPanel panelCreationBudget = new JPanel();
@@ -316,7 +327,7 @@ panelListeEncaissement.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelJournal = new JPanel();
 		panelJournal.setBackground(new Color(51, 102, 204));
-		tabbedPane.addTab("Journal", null, panelJournal, null);
+		tabbedPane.addTab(html1+"Journal"+html2, new ImageIcon("../ApplicationGestion/src/image/journal.png"), panelJournal, null);
 		panelJournal.setLayout(null);
 		
 		JPanel panelFiltresJournalBudget = new JPanel();

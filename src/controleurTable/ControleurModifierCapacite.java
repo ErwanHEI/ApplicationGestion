@@ -41,7 +41,7 @@ public class ControleurModifierCapacite extends AbstractAction{
         	if(newCapacite >= 0 && newCapacite <= 100){
 		        for(int i = row.length-1; i >= 0; i--){
 		        	cellule = (int) tableau.getValueAt(row[i], 4);
-		        	stockageManager.majModifierCapacite(newCapacite, cellule);
+		        	stockageManager.majModifierCapacite(100-newCapacite, cellule);
 		        }
 		        modeleListeStockage.clear();
 		        listeStockage = stockageManager.listerStockage();

@@ -13,14 +13,22 @@ import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
+import entitie.Evenement;
 import entitie.Virement;
+import manager.EvenementManager;
 import modelTableau.ModeleTableauListeBudget;
 import modelTableau.ModeleTableauListeProduit;
+import modelTableau.ModeleTableauProduitEvenement;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -31,6 +39,8 @@ import java.util.List;
 
 public class PanelEvenement extends JPanel{
 
+private JPanel panelScroll;
+	
 	private JTextField champReferenceEvenement;
 	private JTextField champNomEvenement;
 	private JTextField champDateEvenement;
@@ -40,24 +50,28 @@ public class PanelEvenement extends JPanel{
 	
 	private ModeleTableauListeProduit modeleListeProduit = new ModeleTableauListeProduit();
 	private ModeleTableauListeBudget modeleListeBudget = new ModeleTableauListeBudget();
+	private ModeleTableauProduitEvenement modeleTableauProduitEvenement;
+
 	private JTable tableauProduitEvenement;
 	
 	private List<Virement> listeVirementEvenement;
 
+	private EvenementManager evenementManager = new EvenementManager();
+	private List<Evenement> listeEvenement;
+	private Evenement evenement;
+	
+	private String html1 = "<html><body style = 'margin:0;padding-top:5px;padding-bottom:5px;padding-left:10px;font-size:1.4em;font-family:Verdana'>";
+    private String html2 =  "</body></html>";
+    private JTextField champRecherche;
 	private LayoutManager panelComposantEvenement;
 	
 	public PanelEvenement() {
 		initialize();
 	}
 
-
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		
-		listeVirementEvenement=new ArrayList<Virement>();
+		listeVirementEvenement = new ArrayList<Virement>();
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 16, 1002, 665);
@@ -66,37 +80,83 @@ public class PanelEvenement extends JPanel{
 		
 		JPanel ongletEvenement = new JPanel();
 		ongletEvenement.setBackground(new Color(51, 102, 204));
-		tabbedPane.addTab("Ev\u00E8nements", null, ongletEvenement, null);
+		tabbedPane.addTab(html1+"Ev\u00E8nements"+html2, new ImageIcon("../ApplicationGestion/src/image/evenement.png"), ongletEvenement, null);
 		ongletEvenement.setLayout(null);
 		
-		JPanel panelEvenement = new JPanel();
-		panelEvenement.setBounds(0, 0, 997, 631);
-		ongletEvenement.add(panelEvenement);
-		panelEvenement.setLayout(null);
-		
-		JScrollPane scrollPaneEvenement = new JScrollPane();
-		scrollPaneEvenement.setBounds(0, 0, 997, 631);
-		panelEvenement.add(scrollPaneEvenement);
-		
 		JPanel panelScroll = new JPanel();
-		panelScroll.setLayout(new GridLayout(1, 1, 0, 0));
+		listeEvenement = evenementManager.listerEvent();
+		panelScroll.setLayout(new GridLayout(listeEvenement.size(), 1));
+		JScrollPane scrollPaneEvenement = new JScrollPane();
+		scrollPaneEvenement.setBounds(0, 66, 997, 530);
+		scrollPaneEvenement.getVerticalScrollBar().setUnitIncrement(30);
+		
+		for(int i=0; i<listeEvenement.size(); i++){
+			evenement = listeEvenement.get(i);
+			
+			JPanel panel = new JPanel();
+			Border border = BorderFactory.createLineBorder(Color.BLACK);
+			String nomEvenement = evenement.getNomEvenement();
+			String dateEvenement = evenement.getDateEvent();
+			
+			panel.setLayout(null);
+			panel.setPreferredSize(new Dimension(0, 200));
+			panel.setBorder(border);
+			
+			JLabel labelEvenement = new JLabel(nomEvenement);
+			labelEvenement.setFont(new Font("Tahoma", Font.BOLD, 27));
+			labelEvenement.setBounds(15, 16, 600, 37);
+			panel.add(labelEvenement);
+			
+			JLabel labelDate = new JLabel("Date : "+dateEvenement);
+			labelDate.setFont(new Font("Tahoma", Font.PLAIN, 22));
+			labelDate.setBounds(765, 16, 220, 37);
+			panel.add(labelDate);
+			
+			
+			modeleTableauProduitEvenement = new ModeleTableauProduitEvenement(evenement);
+			JTable tableauProduit = new JTable(modeleTableauProduitEvenement);
+						
+			JScrollPane scrollPane = new JScrollPane(tableauProduit);
+			scrollPane.setBounds(100, 69, 300, 100);
+			panel.add(scrollPane);
+
+			panelScroll.add(panel);
+		}
+		
+		
 		
 		scrollPaneEvenement.setViewportView(panelScroll);
+		ongletEvenement.add(scrollPaneEvenement);
 		
+		JPanel panelRecherche = new JPanel();
+		panelRecherche.setBounds(0, 0, 997, 50);
+		ongletEvenement.add(panelRecherche);
+		panelRecherche.setLayout(null);
 		
-/*----------------------------------------------------------------------------------------------
----------------------------------------------TABLEAU DES BUDGETS--------------------------------
-------------------------------------------------------------------------------------------------*/
-		//tableauEvenement = new JTable(modeleListeBudget);
+		JLabel lblRechercher = new JLabel("Rechercher :");
+		lblRechercher.setBounds(230, 20, 89, 20);
+		panelRecherche.add(lblRechercher);
+		
+		champRecherche = new JTextField();
+		champRecherche.setBounds(334, 17, 300, 26);
+		panelRecherche.add(champRecherche);
+		champRecherche.setColumns(10);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(680, 16, 115, 29);
+		panelRecherche.add(btnNewButton);
+		
 
-				
+		
+		
 /*----------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------*/	
+---------------------------------------------ONGLET GESTION--------------------------------
+------------------------------------------------------------------------------------------------*/
+
 		
 		JPanel ongletGestion = new JPanel();
 		ongletGestion.setBackground(new Color(51, 102, 204));
-		tabbedPane.addTab("Gestion", null, ongletGestion, null);
+		tabbedPane.addTab(html1+"Gestion"+html2, new ImageIcon("../ApplicationGestion/src/image/gestion.png"), ongletGestion, null);
 		ongletGestion.setLayout(null);
 		
 		JPanel panelCreationEvenement = new JPanel();
@@ -192,7 +252,8 @@ public class PanelEvenement extends JPanel{
 ------------------------------------------------------------------------------------------------*/
 		
 		JPanel ongletJournal = new JPanel();
-		tabbedPane.addTab("Journal", null, ongletJournal, null);
+		tabbedPane.addTab(html1+"Journal"+html2, new ImageIcon("../ApplicationGestion/src/image/journal.png"), ongletJournal, null);
+
 	}
 
 	public JTextField getChampReferenceEvenement() {

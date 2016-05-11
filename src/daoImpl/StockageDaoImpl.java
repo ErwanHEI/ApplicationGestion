@@ -57,7 +57,7 @@ public class StockageDaoImpl implements StockageDao{
 				String localisation=res.getString("localisation");
 				Integer remplissage=res.getInt("remplissage");
 				
-				Stockage stockage=new Stockage(idSto,localisation,nom,remplissage);
+				Stockage stockage=new Stockage(idSto, nom, localisation, remplissage);
 				listeStockage.add(stockage);
 			}
 			
