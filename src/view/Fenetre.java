@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -41,6 +42,13 @@ public class Fenetre {
 	private String html1 = "<html><body style = 'margin:0;font-size:1.1em;font-family:Verdana'>";
     private String html2 =  "</body></html>";
     
+    private int x = Toolkit.getDefaultToolkit().getScreenSize().width;
+	private int y = Toolkit.getDefaultToolkit().getScreenSize().height;
+	private double x1 = 1024;
+	private double y1 = 768;
+	private double adaptx = x/x1;
+	private double adapty = y/y1;
+	
     JMenuBar menuBar = new JMenuBar();
     
     JMenu mnNewMenu = new JMenu(html1+"Fichier"+html2);
@@ -113,10 +121,10 @@ public void execute(){
 	fen.getContentPane().setLayout(new BorderLayout());
 	//fen.add(panelProduit, BorderLayout.CENTER);
 	//fen.getContentPane().setBackground(new Color(51, 102, 204));
-	fen.setBounds(100, 100, 1024, 768);
+	fen.setBounds(0, 0, x, y);
 	fen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	fen.setContentPane(panelProduit);
-	fen.setResizable(false);
+	fen.setResizable(true);
 	fen.setVisible(true);
 }
 
