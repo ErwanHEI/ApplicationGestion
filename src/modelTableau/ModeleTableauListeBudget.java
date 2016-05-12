@@ -1,5 +1,6 @@
 package modelTableau;
 
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,8 @@ public class ModeleTableauListeBudget extends AbstractTableModel{
     private List<Budget> listeBudget = new ArrayList<Budget>();
  
     private final String[] entetes = {"Référence", "Nom", "Budget fixé", "Budget réel", "Restant à encaisser", "Solde réel", "Id Budget"};
- 
+
+    
     public ModeleTableauListeBudget() {
         super();
         listeBudget = budgetManager.listerBudget();
