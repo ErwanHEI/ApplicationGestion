@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
@@ -26,83 +28,90 @@ public class AjoutVirementEvenement extends JFrame {
 	private JTextField champMontant;
 	private ComboBoxDynamiqueBudget comboBoxDynamiqueBudget = new ComboBoxDynamiqueBudget();
 	private JButton boutonValider;
+	
+	private int x = Toolkit.getDefaultToolkit().getScreenSize().width;
+	private int y = Toolkit.getDefaultToolkit().getScreenSize().height;
+	private double x1 = 1024;
+	private double y1 = 768;
+	private double adaptx = x/x1;
+	private double adapty = y/y1;
 
 	public AjoutVirementEvenement() {
-		setBounds(100, 100, 550, 400);
+		setBounds((int) ((x/2)-((550*adaptx)/2)), (int) ((y/2)-((400*adapty)/2)), (int) (550*adaptx), (int) (400*adaptx));
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 102, 204));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder((int) (5*adapty), (int) (5*adapty), (int) (5*adapty), (int) (5*adapty)));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setVisible(true);
 		
 		JPanel panelAjoutVirementEvenement = new JPanel();
-		panelAjoutVirementEvenement.setBounds(5, 65, 518, 274);
+		panelAjoutVirementEvenement.setBounds((int) (5*adaptx), (int) (65*adapty), (int) (518*adaptx), (int) (274*adaptx));
 		contentPane.add(panelAjoutVirementEvenement);
 		panelAjoutVirementEvenement.setLayout(null);
 		
 		JLabel labelReference = new JLabel("R\u00E9f\u00E9rence :");
-		labelReference.setBounds(15, 19, 80, 20);
+		labelReference.setBounds((int) (15*adaptx), (int) (19*adapty), (int) (80*adaptx), (int) (20*adaptx));
 		panelAjoutVirementEvenement.add(labelReference);
 		
 		champReference = new JTextField();
-		champReference.setBounds(110, 16, 146, 26);
+		champReference.setBounds((int) (110*adaptx), (int) (16*adapty), (int) (146*adaptx), (int) (26*adaptx));
 		panelAjoutVirementEvenement.add(champReference);
 		champReference.setColumns(10);
 		
 		JLabel labelEmetteur = new JLabel("Emetteur :");
-		labelEmetteur.setBounds(20, 58, 75, 20);
+		labelEmetteur.setBounds((int) (20*adaptx), (int) (58*adapty), (int) (75*adaptx), (int) (20*adaptx));
 		panelAjoutVirementEvenement.add(labelEmetteur);
 		
 		champEmetteur = new JTextField();
 		champEmetteur.setColumns(10);
-		champEmetteur.setBounds(110, 55, 146, 26);
+		champEmetteur.setBounds((int) (110*adaptx), (int) (55*adapty), (int) (146*adaptx), (int) (26*adaptx));
 		panelAjoutVirementEvenement.add(champEmetteur);
 		
 		JLabel labelRecepteur = new JLabel("R\u00E9cepteur :");
-		labelRecepteur.setBounds(15, 97, 81, 20);
+		labelRecepteur.setBounds((int) (15*adaptx), (int) (97*adapty), (int) (81*adaptx), (int) (20*adaptx));
 		panelAjoutVirementEvenement.add(labelRecepteur);
 		
 		champRecepteur = new JTextField();
 		champRecepteur.setColumns(10);
-		champRecepteur.setBounds(110, 94, 146, 26);
+		champRecepteur.setBounds((int) (110*adaptx), (int) (94*adapty), (int) (146*adaptx), (int) (26*adaptx));
 		panelAjoutVirementEvenement.add(champRecepteur);
 		
 		JLabel labelDate = new JLabel("Date :");
-		labelDate.setBounds(299, 22, 43, 20);
+		labelDate.setBounds((int) (299*adaptx), (int) (22*adapty), (int) (43*adaptx), (int) (20*adaptx));
 		panelAjoutVirementEvenement.add(labelDate);
 		
 		champDate = new JTextField();
 		champDate.setColumns(10);
-		champDate.setBounds(357, 19, 146, 26);
+		champDate.setBounds((int) (357*adaptx), (int) (19*adapty), (int) (146*adaptx), (int) (26*adaptx));
 		panelAjoutVirementEvenement.add(champDate);
 		
 		JLabel labelMontant = new JLabel("Montant :");
-		labelMontant.setBounds(274, 61, 68, 20);
+		labelMontant.setBounds((int) (274*adaptx), (int) (61*adapty), (int) (68*adaptx), (int) (20*adaptx));
 		panelAjoutVirementEvenement.add(labelMontant);
 		
 		champMontant = new JTextField();
 		champMontant.setColumns(10);
-		champMontant.setBounds(357, 58, 146, 26);
+		champMontant.setBounds((int) (357*adaptx), (int) (58*adapty), (int) (146*adaptx), (int) (26*adaptx));
 		panelAjoutVirementEvenement.add(champMontant);
 		
 		JLabel labelBudget = new JLabel("Budget :");
-		labelBudget.setBounds(282, 100, 60, 20);
+		labelBudget.setBounds((int) (282*adaptx), (int) (100*adapty), (int) (60*adaptx), (int) (20*adaptx));
 		panelAjoutVirementEvenement.add(labelBudget);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox = comboBoxDynamiqueBudget.ComboBoxDynamiqueBudget();
-		comboBox.setBounds(357, 100, 146, 26);
+		comboBox.setBounds((int) (357*adaptx), (int) (100*adapty), (int) (146*adaptx), (int) (26*adaptx));
 		panelAjoutVirementEvenement.add(comboBox);
 		
 		boutonValider = new JButton("Valider");
-		boutonValider.setBounds(198, 200, 115, 29);
+		boutonValider.setBounds((int) (198*adaptx), (int) (200*adapty), (int) (115*adaptx), (int) (29*adaptx));
 		panelAjoutVirementEvenement.add(boutonValider);
 		
 		JLabel lblAjoutDunVirement = new JLabel("Ajout d'un virement pour l'\u00E9v\u00E8nement");
 		lblAjoutDunVirement.setForeground(new Color(255, 255, 255));
-		lblAjoutDunVirement.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblAjoutDunVirement.setBounds(84, 16, 386, 25);
+		lblAjoutDunVirement.setFont(new Font("Tahoma", Font.BOLD, (int) (20*adaptx)));
+		lblAjoutDunVirement.setBounds((int) (84*adaptx), (int) (16*adapty), (int) (386*adaptx), (int) (25*adaptx));
 		contentPane.add(lblAjoutDunVirement);
 		
 		

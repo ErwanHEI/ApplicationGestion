@@ -111,6 +111,7 @@ public class Authentification {
 		frmOutilGestionDes.getContentPane().add(labelMotDePasse);
 		
 		passwordField = new JPasswordField();
+		passwordField.setFont(new Font("Tahoma", Font.PLAIN, (int)(12*adaptx)));
 		passwordField.setForeground(Color.black);
 		passwordField.setBounds((int)(530*adaptx), (int)(299*adapty), (int)(400*adaptx), (int)(26*adapty));
 		frmOutilGestionDes.getContentPane().add(passwordField);
