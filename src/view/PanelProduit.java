@@ -91,9 +91,9 @@ public class PanelProduit extends JPanel{
 	
 	private JButton boutonAjouterProduit; 
 	private JButton boutonModifierProduit;
+	
 	private JPanel panelLieuStockage;
 	private JButton boutonAjouterLieu;
-
 	private JButton boutonRechercher;
 	
 	private String html1 = "<html><body style = 'margin:0;padding-top:5px;padding-bottom:5px;padding-left:10px;font-size:1.4em;font-family:Verdana'>";
@@ -128,16 +128,18 @@ public class PanelProduit extends JPanel{
 		
 		JLabel rechercherProduit = new JLabel("Rechercher un produit :");
 		rechercherProduit.setFont(new Font("Tahoma", Font.PLAIN, (int) (20*adaptx)));
-		rechercherProduit.setBounds((int) (101*adaptx), (int) (47*adapty), (int) (215*adaptx), (int) (27*adaptx));
+		rechercherProduit.setBounds((int) (101*adaptx), (int) (47*adapty), (int) (215*adaptx), (int) (27*adapty));
 		ongletProduit.add(rechercherProduit);
 		
 		champRecherche = new JTextField();
+		champRecherche.setFont(new Font("Tahoma", Font.PLAIN, (int)(12*adaptx)));
 		champRecherche.setBounds((int) (331*adaptx), (int) (47*adapty), (int) (300*adaptx), (int) (26*adaptx));
 		ongletProduit.add(champRecherche);
 		champRecherche.setColumns(10);
 		
-		JButton boutonRechercher = new JButton("Rechercher");
+	
 		boutonRechercher = new JButton("Rechercher");
+		boutonRechercher.setFont(new Font("Tahoma", Font.PLAIN, (int)(12*adaptx)));
 		boutonRechercher.setBounds((int) (696*adaptx), (int) (46*adapty), (int) (200*adaptx), (int) (29*adaptx));
 		ongletProduit.add(boutonRechercher);
 		
@@ -148,12 +150,12 @@ public class PanelProduit extends JPanel{
 		
 		JComboBox comboBoxFiltres = new JComboBox();
 		comboBoxFiltres = filtreProduit.FiltreProduit(modeleListeProduit);
-		comboBoxFiltres.setFont(new Font("Tahoma", Font.PLAIN, (int) (20*adaptx)));
+		comboBoxFiltres.setFont(new Font("Tahoma", Font.PLAIN, (int) (12*adaptx)));
 		comboBoxFiltres.setBounds((int) (331*adaptx), (int) (105*adapty), (int) (300*adaptx), (int) (26*adaptx));
 		ongletProduit.add(comboBoxFiltres);
 		
 		JPanel panelListeProduit = new JPanel();
-		panelListeProduit.setBounds((int) (0*adaptx), (int) (169*adapty), (int) (997*adaptx), (int) (427*adaptx));
+		panelListeProduit.setBounds((int) (0*adaptx), (int) (169*adapty), (int) (997*adaptx), (int) (427*adapty));
 		ongletProduit.add(panelListeProduit);
 		panelListeProduit.setLayout(new BorderLayout(0, 0));
 		
@@ -166,13 +168,16 @@ public class PanelProduit extends JPanel{
 		tableauProduit.getColumnModel().getColumn(6).setMaxWidth(0);
 		tableauProduit.getColumnModel().getColumn(6).setMinWidth(0);
 		tableauProduit.getColumnModel().getColumn(6).setPreferredWidth(0);
-		
+		tableauProduit.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
+		tableauProduit.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, (int) (18*adaptx)));
+		tableauProduit.setRowHeight((int) (21*adaptx));
 		
 		JScrollPane scrollPaneProduit = new JScrollPane(tableauProduit);
 		panelListeProduit.add(scrollPaneProduit, BorderLayout.CENTER);
 		
 		boutonSupprimerProduit = new JButton("Supprimer");
-		boutonSupprimerProduit.setBounds((int) (360*adaptx), (int) (599*adapty), (int) (262*adaptx), (int) (29*adaptx));
+		boutonSupprimerProduit.setFont(new Font("Tahoma", Font.PLAIN, (int) (12*adaptx)));
+		boutonSupprimerProduit.setBounds((int) (360*adaptx), (int) (599*adapty), (int) (262*adaptx), (int) (29*adapty));
 		ongletProduit.add(boutonSupprimerProduit);
 /*----------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
@@ -432,8 +437,8 @@ public class PanelProduit extends JPanel{
 		panelAjoutProduit.add(comboBoxLieuStockageProduit);
 		
 		boutonAjouterProduit = new JButton("Ajouter");
-		boutonAjouterProduit.setFont(new Font("Tahoma", Font.PLAIN, (int) (25*adaptx)));
-		boutonAjouterProduit.setBounds((int) (757*adaptx), (int) (244*adapty), (int) (220*adaptx), (int) (30*adaptx));
+		boutonAjouterProduit.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
+		boutonAjouterProduit.setBounds((int) (757*adaptx), (int) (244*adapty), (int) (220*adaptx), (int) (30*adapty));
 		panelAjoutProduit.add(boutonAjouterProduit);
 		
 		labelErreurAjoutProduit = new JLabel("");
@@ -625,8 +630,8 @@ public class PanelProduit extends JPanel{
 		panelModifierProduit.add(comboBoxNouveauLieu);
 		
 		boutonModifierProduit = new JButton("Modifier");
-		boutonModifierProduit.setFont(new Font("Tahoma", Font.PLAIN, (int) (25*adaptx)));
-		boutonModifierProduit.setBounds((int) (757*adaptx), (int) (228*adapty), (int) (220*adaptx), (int) (30*adaptx));
+		boutonModifierProduit.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
+		boutonModifierProduit.setBounds((int) (757*adaptx), (int) (228*adapty), (int) (220*adaptx), (int) (30*adapty));
 		panelModifierProduit.add(boutonModifierProduit);
 		
 		JLabel labelErreurModifierProduit = new JLabel("");
@@ -756,7 +761,7 @@ public class PanelProduit extends JPanel{
 		panelAjoutLieuStockage.add(champLocalisationLieu);
 		
 		boutonAjouterLieu = new JButton("Ajouter");
-		boutonAjouterLieu.setFont(new Font("Tahoma", Font.PLAIN, (int) (25*adaptx)));
+		boutonAjouterLieu.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
 		boutonAjouterLieu.setBounds((int) (757*adaptx), (int) (154*adapty), (int) (220*adaptx), (int) (30*adapty));
 		panelAjoutLieuStockage.add(boutonAjouterLieu);
 		
@@ -785,15 +790,20 @@ public class PanelProduit extends JPanel{
 		tableauLieuStockage.getColumnModel().getColumn(4).setMaxWidth(0);
 		tableauLieuStockage.getColumnModel().getColumn(4).setMinWidth(0);
 		tableauLieuStockage.getColumnModel().getColumn(4).setPreferredWidth(0);
+		tableauLieuStockage.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
+		tableauLieuStockage.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, (int) (18*adaptx)));
+		tableauLieuStockage.setRowHeight((int) (21*adaptx));
 		
 		JScrollPane scrollPaneLieuStockage = new JScrollPane(tableauLieuStockage);
 		panelListeLieuStockage.add(scrollPaneLieuStockage);
 		
 		boutonModifierCapacite = new JButton("Modifier la capacit\u00E9 libre");
+		boutonModifierCapacite.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
 		boutonModifierCapacite.setBounds((int) (297*adaptx), (int) (565*adapty), (int) (255*adaptx), (int) (29*adapty));
 		panelGestionLieuStockage.add(boutonModifierCapacite);
 		
 		boutonSupprimerStockage = new JButton("Supprimer");
+		boutonSupprimerStockage.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
 		boutonSupprimerStockage.setBounds((int) (600*adaptx), (int) (565*adapty), (int) (115*adaptx), (int) (29*adapty));
 		panelGestionLieuStockage.add(boutonSupprimerStockage);
 				
@@ -819,11 +829,12 @@ public class PanelProduit extends JPanel{
 		
 		JComboBox comboBox_3 = new JComboBox();
 		comboBox_3 = filtreJournalProduit.FiltreProduit(modeleJournalProduit);
+		comboBox_3.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
 		comboBox_3.setBounds((int) (233*adaptx), (int) (16*adapty), (int) (400*adaptx), (int) (26*adaptx));
 		panelFiltres.add(comboBox_3);
 		
 		JPanel panelJournalStock = new JPanel();
-		panelJournalStock.setBounds(0, (int) (66*adapty), (int) (997*adaptx), (int) (527*adaptx));
+		panelJournalStock.setBounds(0, (int) (66*adapty), (int) (997*adaptx), (int) (527*adapty));
 		ongletJournal.add(panelJournalStock);
 		
 /*----------------------------------------------------------------------------------------------
@@ -837,12 +848,16 @@ public class PanelProduit extends JPanel{
 		tableauJournalStock.getColumnModel().getColumn(5).setMaxWidth(0);
 		tableauJournalStock.getColumnModel().getColumn(5).setMinWidth(0);
 		tableauJournalStock.getColumnModel().getColumn(5).setPreferredWidth(0);
+		tableauJournalStock.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
+		tableauJournalStock.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, (int) (18*adaptx)));
+		tableauJournalStock.setRowHeight((int) (21*adaptx));
 		
 		JScrollPane scrollPaneJournalStock = new JScrollPane(tableauJournalStock);
 		panelJournalStock.add(scrollPaneJournalStock);
 		
 		boutonSupprimerJournalProduit = new JButton("Supprimer");
-		boutonSupprimerJournalProduit.setBounds((int) (440*adaptx), (int) (599*adapty), (int) (115*adaptx), (int) (29*adaptx));
+		boutonSupprimerJournalProduit.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
+		boutonSupprimerJournalProduit.setBounds((int) (440*adaptx), (int) (599*adapty), (int) (115*adaptx), (int) (29*adapty));
 		ongletJournal.add(boutonSupprimerJournalProduit);
 /*----------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------

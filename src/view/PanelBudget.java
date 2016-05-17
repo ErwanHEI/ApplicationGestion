@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import modelCombo.ComboBoxDynamiqueBudget;
+import modelFiltres.FiltreBudget;
 import modelTableau.ModeleTableauEncaissement;
 import modelTableau.ModeleTableauJournalBudget;
 import modelTableau.ModeleTableauListeBudget;
@@ -45,12 +46,14 @@ public class PanelBudget extends JPanel{
 	private JTable tableauBudget;
 	private JTable tableauEncaissement;
 	private JTable tableauJournalBudget;
-	private String supp = "Supprimer la ligne";
+	
 	private JTextField champReferenceEncaissement;
 	private JTextField champEmetteurEncaissement;
 	private JTextField champRecepteurEncaissement;
 	private JTextField champDateEncaissement;
 	private JTextField champMontantEncaissement;
+	
+	private FiltreBudget filtreBudget = new FiltreBudget();
 	
 	JLabel labelErreurCreationBudget;
 	JLabel labelErreurAjoutEncaissement ;
@@ -97,11 +100,13 @@ public class PanelBudget extends JPanel{
 		panelFiltres.add(labelFiltres);
 		
 		JComboBox comboBoxFiltres = new JComboBox();
+		comboBoxFiltres = filtreBudget.FiltreBudget(modeleListeBudget);
+		comboBoxFiltres.setFont(new Font("Tahoma", Font.PLAIN, (int) (12*adaptx)));
 		comboBoxFiltres.setBounds((int) (233*adaptx), (int) (16*adapty), (int) (400*adaptx), (int) (26*adaptx));
 		panelFiltres.add(comboBoxFiltres);
 		
 		JPanel panelListeBudget = new JPanel();
-		panelListeBudget.setBounds(0, (int) (66*adapty), (int) (997*adaptx), (int) (527*adaptx));
+		panelListeBudget.setBounds(0, (int) (66*adapty), (int) (997*adaptx), (int) (527*adapty));
 		panelBudget.add(panelListeBudget);
 		panelListeBudget.setLayout(new BorderLayout(0, 0));
 		
@@ -111,10 +116,10 @@ public class PanelBudget extends JPanel{
 ------------------------------------------------------------------------------------------------*/
 		
 		tableauBudget = new JTable(modeleListeBudget);
-		tableauBudget.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
 		tableauBudget.getColumnModel().getColumn(6).setMaxWidth(0);
 		tableauBudget.getColumnModel().getColumn(6).setMinWidth(0);
 		tableauBudget.getColumnModel().getColumn(6).setPreferredWidth(0);
+		tableauBudget.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
 		tableauBudget.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, (int) (18*adaptx)));
 		tableauBudget.setRowHeight((int) (21*adaptx));
 		
@@ -122,7 +127,8 @@ public class PanelBudget extends JPanel{
 		panelListeBudget.add(scrollPaneBudget, BorderLayout.CENTER);
 		
 		boutonSupprimerBudget = new JButton("Supprimer");
-		boutonSupprimerBudget.setBounds((int) (441*adaptx), (int) (602*adapty), (int) (115*adaptx), (int) (29*adaptx));
+		boutonSupprimerBudget.setFont(new Font("Tahoma", Font.PLAIN, (int)(16*adaptx)));
+		boutonSupprimerBudget.setBounds((int) (441*adaptx), (int) (602*adapty), (int) (115*adaptx), (int) (29*adapty));
 		panelBudget.add(boutonSupprimerBudget);
 		
 		
@@ -182,8 +188,8 @@ public class PanelBudget extends JPanel{
 		panelCreationBudget.add(champBudgetFixe);
 		
 		boutonCreerBudget = new JButton("Cr\u00E9er");
-		boutonCreerBudget.setFont(new Font("Tahoma", Font.PLAIN, (int) (25*adaptx)));
-		boutonCreerBudget.setBounds((int) (200*adaptx), (int) (192*adapty), (int) (170*adaptx), (int) (30*adaptx));
+		boutonCreerBudget.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
+		boutonCreerBudget.setBounds((int) (200*adaptx), (int) (192*adapty), (int) (170*adaptx), (int) (30*adapty));
 		panelCreationBudget.add(boutonCreerBudget);
 		
 		JLabel labelAjoutEncaissement = new JLabel("Ajout d'un encaissement");
@@ -247,8 +253,8 @@ public class PanelBudget extends JPanel{
 		panelCreationBudget.add(champMontantEncaissement);
 		
 		boutonAjoutEncaissement = new JButton("Ajouter");
-		boutonAjoutEncaissement.setFont(new Font("Tahoma", Font.PLAIN, (int) (25*adaptx)));
-		boutonAjoutEncaissement.setBounds((int) (866*adaptx), (int) (192*adapty), (int) (116*adaptx), (int) (30*adaptx));
+		boutonAjoutEncaissement.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
+		boutonAjoutEncaissement.setBounds((int) (866*adaptx), (int) (192*adapty), (int) (116*adaptx), (int) (30*adapty));
 		panelCreationBudget.add(boutonAjoutEncaissement);
 		
 		JLabel labelVirement = new JLabel("Budget :");
@@ -294,22 +300,27 @@ public class PanelBudget extends JPanel{
 ---------------------------------------------TABLEAU DES ENCAISSEMENTS--------------------------
 ------------------------------------------------------------------------------------------------*/
 		
-panelListeEncaissement.setLayout(new BorderLayout(0, 0));
+		panelListeEncaissement.setLayout(new BorderLayout(0, 0));
 		
 		tableauEncaissement = new JTable(modeleListeEncaissement);
 		tableauEncaissement.getColumnModel().getColumn(5).setMaxWidth(0);
 		tableauEncaissement.getColumnModel().getColumn(5).setMinWidth(0);
 		tableauEncaissement.getColumnModel().getColumn(5).setPreferredWidth(0);
+		tableauEncaissement.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
+		tableauEncaissement.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, (int) (18*adaptx)));
+		tableauEncaissement.setRowHeight((int) (21*adaptx));
 		
 		JScrollPane scrollPaneEncaissement = new JScrollPane(tableauEncaissement);
 		panelListeEncaissement.add(scrollPaneEncaissement);
 		
 		boutonEncaisser = new JButton("Encaisser");
-		boutonEncaisser.setBounds((int) (341*adaptx), (int) (602*adapty), (int) (115*adaptx), (int) (29*adaptx));
+		boutonEncaisser.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
+		boutonEncaisser.setBounds((int) (341*adaptx), (int) (602*adapty), (int) (115*adaptx), (int) (29*adapty));
 		panelGestion.add(boutonEncaisser);
 		
 		boutonSupprimerEncaissement = new JButton("Supprimer");
-		boutonSupprimerEncaissement.setBounds((int) (514*adaptx), (int) (602*adapty), (int) (115*adaptx), (int) (29*adaptx));
+		boutonSupprimerEncaissement.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
+		boutonSupprimerEncaissement.setBounds((int) (514*adaptx), (int) (602*adapty), (int) (115*adaptx), (int) (29*adapty));
 		panelGestion.add(boutonSupprimerEncaissement);
 					
 			
@@ -338,7 +349,7 @@ panelListeEncaissement.setLayout(new BorderLayout(0, 0));
 		panelFiltresJournalBudget.add(comboBox_2);
 		
 		JPanel panelJournalBudget = new JPanel();
-		panelJournalBudget.setBounds(0, (int) (66*adapty), (int) (997*adaptx), (int) (532*adaptx));
+		panelJournalBudget.setBounds(0, (int) (66*adapty), (int) (997*adaptx), (int) (532*adapty));
 		panelJournal.add(panelJournalBudget);
 		panelJournalBudget.setLayout(new BorderLayout(0, 0));
 		
@@ -350,12 +361,16 @@ panelListeEncaissement.setLayout(new BorderLayout(0, 0));
 		tableauJournalBudget.getColumnModel().getColumn(6).setMaxWidth(0);
 		tableauJournalBudget.getColumnModel().getColumn(6).setMinWidth(0);
 		tableauJournalBudget.getColumnModel().getColumn(6).setPreferredWidth(0);
+		tableauJournalBudget.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
+		tableauJournalBudget.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, (int) (18*adaptx)));
+		tableauJournalBudget.setRowHeight((int) (21*adaptx));
 		
 		JScrollPane scrollPaneJournalBudget = new JScrollPane(tableauJournalBudget);
 		panelJournalBudget.add(scrollPaneJournalBudget);
 		
 		boutonSupprimerJournalBudget = new JButton("Supprimer");
-		boutonSupprimerJournalBudget.setBounds((int) (439*adaptx), (int) (602*adapty), (int) (115*adaptx), (int) (29*adaptx));
+		boutonSupprimerJournalBudget.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
+		boutonSupprimerJournalBudget.setBounds((int) (439*adaptx), (int) (602*adapty), (int) (115*adaptx), (int) (29*adapty));
 		panelJournal.add(boutonSupprimerJournalBudget);
 		
 
@@ -412,14 +427,6 @@ panelListeEncaissement.setLayout(new BorderLayout(0, 0));
 
 	public void setTableauJournalBudget(JTable tableauJournalBudget) {
 		this.tableauJournalBudget = tableauJournalBudget;
-	}
-
-	public String getSupp() {
-		return supp;
-	}
-
-	public void setSupp(String supp) {
-		this.supp = supp;
 	}
 
 	public JTextField getChampReferenceEncaissement() {
