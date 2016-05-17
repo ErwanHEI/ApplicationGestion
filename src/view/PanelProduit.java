@@ -1132,5 +1132,7 @@ public class PanelProduit extends JPanel{
 	}
 	
 	
+	
+	
 
 }

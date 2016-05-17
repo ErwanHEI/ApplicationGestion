@@ -46,20 +46,21 @@ public class ControleurAjoutEvenement implements ActionListener{
 	public void actionPerformed(ActionEvent e) {	
 		//VERIFICATION CONSOLE
 		for(int i=0; i<listeProduitEvenement.size(); i++)
-		System.out.println("Nom produit : "+listeProduitEvenement.get(i).getNomProduit()+
-				", Quantité nécessaire : "+listeProduitEvenement.get(i).getQuantite());
-		System.out.println("Référence : "+referenceEvenement);
-		System.out.println("Nom : "+nomEvenement);
-		System.out.println("Date : "+dateEvenement);
-		
-		//Récupération des virements de l'évenement
-		List<Virement> listeVirement=panelEvenement.getListeVirementEvenement();
-		System.out.println(listeVirement.size());
-		
+			System.out.println("Nom produit : "+listeProduitEvenement.get(i).getNomProduit()+
+					", Quantité nécessaire : "+listeProduitEvenement.get(i).getQuantite());
+			System.out.println("Référence : "+referenceEvenement);
+			System.out.println("Nom : "+nomEvenement);
+			System.out.println("Date : "+dateEvenement);
 			
-		Evenement evenement = new Evenement(0, nomEvenement, dateEvenement, user, listeProduitEvenement);
-		Evenement newEvent=evenementManager.ajoutEvent(evenement);
-		Integer idEvent=newEvent.getIdEvenement();
+			//Récupération des virements de l'évenement
+			List<Virement> listeVirement=panelEvenement.getListeVirementEvenement();
+			System.out.println(listeVirement.size());
+			
+				
+			Evenement evenement = new Evenement(0, nomEvenement, dateEvenement, user, listeProduitEvenement);
+			Evenement newEvent=evenementManager.ajoutEvent(evenement);
+			Integer idEvent=newEvent.getIdEvenement();
+	
 		for(int i=0; i<listeVirement.size();i++){
 			listeVirement.get(i).setEventAssocie(new Evenement (idEvent, dateEvenement, dateEvenement, user, listeProduitEvenement));
 			listeVirement.get(i).setCreateur(user);

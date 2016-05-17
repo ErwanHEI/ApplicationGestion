@@ -32,9 +32,9 @@ public class ControleurRecherchePdt implements ActionListener{
 			// TODO Auto-generated method stub
 			System.out.println("sgfsrf");
 			
-			//List<Produit> pdtsRecherche=ProduitManager.getInstance().rechercheProduit(pan.getChampRecherche().getText());
+			List<Produit> pdtsRecherche=ProduitManager.getInstance().recherchePdt(pan.getChampRecherche().getText());
 			tab.clear();
-			//tab.setListeProduit(pdtsRecherche);
+			tab.setListeProduit(pdtsRecherche);
 		}
 
 }

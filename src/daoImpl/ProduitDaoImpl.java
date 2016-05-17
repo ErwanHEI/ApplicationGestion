@@ -229,7 +229,7 @@ public class ProduitDaoImpl implements ProduitDao{
 
 
 	@Override
-	public void majPrix(Integer prix, Produit produit, User user) {
+	public void majPrix(Integer prix, Produit produit, User user,String comment) {
 		bdd.connect();
 		Connection connection;
 		try {
@@ -240,7 +240,7 @@ public class ProduitDaoImpl implements ProduitDao{
 			stmt.execute();
 			
 			PreparedStatement stmt1 = bdd.getConnection()
-					.prepareStatement("INSERT INTO`modificationProduit`(`modification`,`datModif`,`utilisateur`, `produit`) VALUES(?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+					.prepareStatement("INSERT INTO`modificationProduit`(`modification`,`datModif`,`utilisateur`, `produit`, `comment`) VALUES(?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
 			stmt1.setString(1, "Prix : "+prix.toString());
 			Date aujourdhui = new Date();
 			List<String> dateA=new ArrayList<String>();
@@ -254,7 +254,7 @@ public class ProduitDaoImpl implements ProduitDao{
 			stmt1.setString(2, dateA.get(0));
 			stmt1.setString(3, user.getNom());
 			stmt1.setString(4, produit.getNomProduit());
-			
+			stmt1.setString(5, comment);
 			stmt1.execute();
 
 		} catch (SQLException e) {
@@ -266,7 +266,7 @@ public class ProduitDaoImpl implements ProduitDao{
 
 
 	@Override
-	public void majQuantite(Integer quantite,Produit produit, User user) {
+	public void majQuantite(Integer quantite,Produit produit, User user, String comment) {
 		bdd.connect();
 		Connection connection;
 		try {
@@ -277,7 +277,7 @@ public class ProduitDaoImpl implements ProduitDao{
 			stmt.execute();
 			
 			PreparedStatement stmt1 = bdd.getConnection()
-					.prepareStatement("INSERT INTO`modificationProduit`(`modification`,`dateModif`,`utilisateur`, `produit`) VALUES(?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+					.prepareStatement("INSERT INTO`modificationProduit`(`modification`,`dateModif`,`utilisateur`, `produit`,`comment`) VALUES(?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
 			stmt1.setString(1, "Quantité : "+quantite.toString());
 			Date aujourdhui = new Date();
 			List<String> dateA=new ArrayList<String>();
@@ -291,7 +291,7 @@ public class ProduitDaoImpl implements ProduitDao{
 			stmt1.setString(2, dateA.get(0));
 			stmt1.setString(3, user.getNom());
 			stmt1.setString(4, produit.getNomProduit());
-			
+			stmt1.setString(5, comment);
 			stmt1.execute();
 
 		} catch (SQLException e) {
@@ -303,7 +303,7 @@ public class ProduitDaoImpl implements ProduitDao{
 
 
 	@Override
-	public void majStockage(Stockage stockage,Produit produit, User user) {
+	public void majStockage(Stockage stockage,Produit produit, User user, String comment) {
 		bdd.connect();
 		Connection connection;
 		try {
@@ -314,7 +314,7 @@ public class ProduitDaoImpl implements ProduitDao{
 			stmt.execute();
 			
 			PreparedStatement stmt1 = bdd.getConnection()
-					.prepareStatement("INSERT INTO`modificationProduit`(`modification`,`datModif`,`utilisateur`, `produit`) VALUES(?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+					.prepareStatement("INSERT INTO`modificationProduit`(`modification`,`dateModif`,`utilisateur`, `produit`,`comment`) VALUES(?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
 			stmt1.setString(1, stockage.getNomStockage());
 			Date aujourdhui = new Date();
 			List<String> dateA=new ArrayList<String>();
@@ -326,8 +326,9 @@ public class ProduitDaoImpl implements ProduitDao{
 		         dateA.add(retval);
 		      }
 			stmt1.setString(2, dateA.get(0));
-			stmt1.setString(3, user.getNom());
+			stmt1.setString(3, user.getEmail());
 			stmt1.setString(4, produit.getNomProduit());
+			stmt1.setString(5, comment);
 			
 			stmt1.execute();
 
@@ -355,7 +356,8 @@ public class ProduitDaoImpl implements ProduitDao{
 				String modification=res.getString("modification");
 				String dateModif=res.getString("dateModif");
 				String createur=res.getString("utilisateur");
-				ModificationProduit modif=new ModificationProduit(idModif, nomP, modification,createur , dateModif);
+				String comment=res.getString("comment");
+				ModificationProduit modif=new ModificationProduit(idModif, nomP, modification,createur , dateModif, comment);
 				listeModif.add(modif);
 				
 			}	
@@ -453,6 +455,59 @@ public class ProduitDaoImpl implements ProduitDao{
 		return newQuantite;
 			
 	}
+
+
+
+	@Override
+	public List<Produit> recherche(String mot) {
+		
+			bdd.connect();
+			List<Produit> listeProduit = new ArrayList<Produit>();
+			
+			try {
+				
+				Statement stm = bdd.getConnection().createStatement();
+				String rqt="SELECT * FROM produit JOIN stockage ON produit.idStockage=stockage.idStockage WHERE nomProduit LIKE '%"+mot+"'";
+				ResultSet res=stm.executeQuery(rqt);
+				while (res.next()){
+					String name=res.getString("nomProduit");
+					Integer idProduit=res.getInt("idProduit");
+					String categorie=res.getString("categorie");
+					Integer quantite=res.getInt("quantite");
+					Double prixU=res.getDouble("prixU");
+					Integer idFournisseur=res.getInt("idFournisseur");
+					Integer idCreateur=res.getInt("idUser");
+					
+					Integer idStockage=res.getInt("idStockage");
+					String localisation=res.getString("localisation");
+					String nomStockage=res.getString("nomStockage");
+					Integer remplissage=res.getInt("remplissage");
+					Stockage stockage=new Stockage(idStockage,localisation,nomStockage,remplissage);
+					
+					PreparedStatement stmt = bdd.getConnection().prepareStatement("SELECT * FROM fournisseur WHERE idFournisseur=?");
+					stmt.setInt(1, idFournisseur);
+					ResultSet res1=stmt.executeQuery();
+					String nomF=res1.getString("nomFournisseur");
+					String adresse=res1.getString("adresse");
+					Fournisseur fournisseur=new Fournisseur(idFournisseur,nomF,adresse);
+					
+					PreparedStatement stmt1 = bdd.getConnection().prepareStatement("SELECT * FROM user WHERE idUser=?");
+					stmt1.setInt(1, idCreateur);
+					ResultSet res2=stmt1.executeQuery();
+					//User createur=map(res2);
+					
+					
+					Produit produit=new Produit(idProduit,name, categorie,prixU, quantite,stockage,fournisseur,null);
+					listeProduit.add(produit);
+				}
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			bdd.close();
+			return listeProduit;
+	}
+	
 
 
 

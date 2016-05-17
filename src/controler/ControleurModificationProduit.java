@@ -22,6 +22,7 @@ public class ControleurModificationProduit implements ActionListener{
 	private boolean erreur;
 	private String message;
 	private PanelProduit pan;
+	private String comment;
 	
 public ControleurModificationProduit(Fenetre fen, PanelProduit pan) {
 		
@@ -40,10 +41,17 @@ public ControleurModificationProduit(Fenetre fen, PanelProduit pan) {
 		//recuperer l'id du produit selectionne
 		Produit pdtModif=pan.getComboxBoxDynamiqueModifierProduit().getPdtSelec();
 		User userConnecte=fen.getUserActuel();
+		
+		if(pan.getChampCommentaire().getText().equals("Votre commentaire sera afficher dans le journal")){
+			comment="";
+		}else{
+			comment=pan.getChampCommentaire().getText();
+		}
+		
 		if(fen.getUserActuel().getTypeUser()==2 ||fen.getUserActuel().getTypeUser()==1 ){
-			if(!quantiteT.isEmpty()){
+			if(!quantiteT.equals("Veuillez entrer une valeur entière")){
 				quantite=Integer.parseInt(pan.getChampNouvelleQuantite().getText());
-				ProduitManager.getInstance().majQuantite(quantite, pdtModif,userConnecte);
+				ProduitManager.getInstance().majQuantite(quantite, pdtModif,userConnecte,comment);
 				PropertyLoader property=new PropertyLoader();
 				try {
 					Properties prop=property.load("fichiers/proprietes");
@@ -59,14 +67,15 @@ public ControleurModificationProduit(Fenetre fen, PanelProduit pan) {
 					e.printStackTrace();
 				}
 			}
-			if(!prixT.isEmpty()){
-				prix=Integer.parseInt(pan.getChampNouveauPrix().getText());
-				ProduitManager.getInstance().majPrix(prix, pdtModif,userConnecte);
-			}
 			
-			/*if(newStockage.getNomStockage()!=null){
-				ProduitManager.getInstance().majStockage(newStockage, pdtModif,userConnecte);
+			/*if(!prixT.equals("Veuillez utiliser le point pour les centimes")){
+				prix=Integer.parseInt(pan.getChampNouveauPrix().getText());
+				ProduitManager.getInstance().majPrix(prix, pdtModif,userConnecte,comment);
 			}*/
+			
+			if(newStockage.getNomStockage()!=null){
+				ProduitManager.getInstance().majStockage(newStockage, pdtModif,userConnecte,comment);
+			}
 		}else{
 			JOptionPane.showMessageDialog(null, "Vous n'etes pas autorisé à effectuer cette action", "ERREUR", 0);
 		}

@@ -30,16 +30,16 @@ public class ProduitManager {
 		return produitDao.listerProduit();
 	}
 	
-	public void majPrix(Integer prix, Produit produit, User user){
-		produitDao.majPrix(prix, produit,user);
+	public void majPrix(Integer prix, Produit produit, User user, String comment){
+		produitDao.majPrix(prix, produit,user, comment);
 	}
 	
-	public void majQuantite(Integer quantite,Produit produit, User user){
-		produitDao.majQuantite(quantite, produit,user);
+	public void majQuantite(Integer quantite,Produit produit, User user, String comment){
+		produitDao.majQuantite(quantite, produit,user, comment);
 	}
 	
-	public void majStockage(Stockage stockage,Produit produit, User user){
-		produitDao.majStockage(stockage, produit,user);
+	public void majStockage(Stockage stockage,Produit produit, User user, String comment){
+		produitDao.majStockage(stockage, produit,user, comment);
 	}
 	
 	public List<ModificationProduit> listerModif(){
@@ -67,5 +67,9 @@ public class ProduitManager {
 	}
 	public Integer newQuantite(Integer id){
 		return produitDao.recupNewQuantite(id);
+	}
+	
+	public List<Produit> recherchePdt(String mot){
+		return produitDao.recherche(mot);
 	}
 }

@@ -28,7 +28,7 @@ public class DataBase {
 	public Connection connect() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:" + DBPath);
+			connection = DriverManager.getConnection("jdbc:sqlite::resource:"+DBPath);
 			statement = connection.createStatement();
 			System.out.println("Connexion a " + DBPath + " avec succès");
 			

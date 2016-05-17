@@ -19,6 +19,8 @@ import controler.ControleurAjoutProduit;
 import controler.ControleurAjoutVirementEvenement;
 import controler.ControleurModificationProduit;
 import controler.ControleurProduitEvenement;
+import controler.ControleurRecherchePdt;
+import controler.FiltreDateControleur;
 import controleurTable.ControleurEncaisserVirement;
 import controleurTable.ControleurModifierCapacite;
 import controleurTable.ControleurSupprimerBudget;
@@ -134,6 +136,7 @@ public void changerPanelStock(PanelProduit pan){
 	pan.getBoutonModifierProduit().addActionListener(new ControleurModificationProduit(this,pan));
 	pan.getBoutonAjouterLieu().addActionListener(new ControlerAjoutStockage(this,pan));
 	pan.getBoutonAjouterProduit().addActionListener(new ControleurAjoutProduit(this,pan));
+	pan.getBoutonRechercher().addActionListener(new ControleurRecherchePdt(this,pan));
 	pan.getBoutonModifierCapacite().addActionListener(new ControleurModifierCapacite(pan));
 	pan.getBoutonSupprimerJournalProduit().addActionListener(new ControleurSupprimerJournalProduit(pan));
 	pan.getBoutonSupprimerProduit().addActionListener(new ControleurSupprimerProduit(pan));
@@ -158,6 +161,13 @@ public void changerPanelEvenement(PanelEvenement pan){
 	fen.setContentPane(pan);
 	pan.getBoutonAjouterVirement().addActionListener(new ControleurAjoutVirementEvenement(pan));
 	pan.getBoutonCreerEvenement().addActionListener(new ControleurProduitEvenement(this, pan));
+	pan.getBtnNewButton().addActionListener(new FiltreDateControleur(this, pan));
+	fen.validate();
+}
+public void changerPanelRecap(Recapitulatif recap){
+	fen.invalidate();
+	fen.setContentPane(recap);
+	
 	fen.validate();
 }
 

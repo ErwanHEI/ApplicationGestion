@@ -7,16 +7,18 @@ public class ModificationProduit {
 	private String modif;
 	private String nomUtil;
 	private String date;
+	private String comment;
 	
 	
 	public ModificationProduit(Integer idModif,String produit, String modif,
-			String nomUtil,String date) {
+			String nomUtil,String date,String comment) {
 		
 		this.idModif = idModif;
 		this.produit = produit;
 		this.nomUtil = nomUtil;
 		this.date=date;
 		this.modif=modif;
+		this.comment=comment;
 	}
 
 
@@ -67,6 +69,16 @@ public class ModificationProduit {
 
 	public void setModif(String modif) {
 		this.modif = modif;
+	}
+
+
+	public String getComment() {
+		return comment;
+	}
+
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	

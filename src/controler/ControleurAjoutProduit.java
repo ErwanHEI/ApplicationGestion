@@ -37,20 +37,20 @@ public class ControleurAjoutProduit implements ActionListener{
 		String categorie=pan.getChampCategorie().getText();
 		//Integer idUser=fen.getUserActuel().getIdUser();
 		
-		if(nom.equals("")){
+		if(nom.equals("Pierre, papier, ciseaux, ...")){
 			erreur=true;
 			message="Veuillez saisir un nom ";
-		}else if(categorie.equals("")){
+		}else if(categorie.equals("")||categorie.equals("Boissons, vêtements, ...")){
 			erreur=true;
 			message="Veuillez saisir une catégorie";
 		}
-		if(pan.getChampQuantiteProduit().getText().equals("")){
+		if(pan.getChampQuantiteProduit().getText().equals("Veuillez entrer une valeur entière")){
 			erreur=true;
 			message="Veuilez saisir une quantite valide";
 		}else{
 			quantite=Integer.parseInt(pan.getChampQuantiteProduit().getText());
 		}
-		if(pan.getChampPrixUnitaireProduit().getText().equals("")){
+		if(pan.getChampPrixUnitaireProduit().getText().equals("Veuillez utiliser le point pour les centimes")){
 			erreur=true;
 			message="Veuillez saisir un prix valide";
 		}else{

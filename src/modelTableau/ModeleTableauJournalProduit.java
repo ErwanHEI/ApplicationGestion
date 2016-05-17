@@ -43,8 +43,8 @@ public class ModeleTableauJournalProduit extends AbstractTableModel {
 	                return listeModifProduit.get(rowIndex).getModif();
 	            case 3:
 	                return listeModifProduit.get(rowIndex).getNomUtil();
-	            //case 4:
-	                //return listeModifProduit.get(rowIndex).;
+	            case 4:
+	                return listeModifProduit.get(rowIndex).getComment();
 	            case 5:
 	            	return listeModifProduit.get(rowIndex).getIdModif();
 	            default:

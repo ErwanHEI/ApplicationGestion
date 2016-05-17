@@ -40,6 +40,7 @@ public class PanelEvenement extends JPanel{
 	
 	private JButton boutonAjouterVirement;
 	private JButton boutonCreerEvenement;
+	private JButton btnNewButton; 
 	
 	private ModeleTableauListeProduit modeleListeProduit = new ModeleTableauListeProduit();
 	private ModeleTableauListeBudget modeleListeBudget = new ModeleTableauListeBudget();
@@ -63,6 +64,7 @@ public class PanelEvenement extends JPanel{
 	private double y1 = 768;
 	private double adaptx = x/x1;
 	private double adapty = y/y1;
+	private List<Virement> listeVirementEvenement;
 	
 	public PanelEvenement() {
 		initialize();
@@ -155,7 +157,7 @@ public class PanelEvenement extends JPanel{
 		panelRecherche.add(champRecherche);
 		champRecherche.setColumns(10);
 		
-		JButton btnNewButton = new JButton("New button");
+		btnNewButton = new JButton("New button");
 		btnNewButton.setBounds((int) (680*adaptx), (int) (16*adapty), (int) (115*adaptx), (int) (29*adaptx));
 		panelRecherche.add(btnNewButton);
 		
@@ -332,6 +334,32 @@ public class PanelEvenement extends JPanel{
 	public void setTableauProduitEvenement(JTable tableauProduitEvenement) {
 		this.tableauProduitEvenement = tableauProduitEvenement;
 	}
+
+	public List<Virement> getListeVirementEvenement() {
+		return listeVirementEvenement;
+	}
+
+	public void setListeVirementEvenement(List<Virement> listeVirementEvenement) {
+		this.listeVirementEvenement = listeVirementEvenement;
+	}
+
+	public JTextField getChampRecherche() {
+		return champRecherche;
+	}
+
+	public void setChampRecherche(JTextField champRecherche) {
+		this.champRecherche = champRecherche;
+	}
+
+	public JButton getBtnNewButton() {
+		return btnNewButton;
+	}
+
+	public void setBtnNewButton(JButton btnNewButton) {
+		this.btnNewButton = btnNewButton;
+	}
 	
+	
+
 
 }
