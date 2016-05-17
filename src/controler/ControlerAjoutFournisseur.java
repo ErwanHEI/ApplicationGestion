@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import entitie.Fournisseur;
 import manager.FournisseurManager;
 import view.AjoutFournisseur;
+import view.PanelProduit;
 
 public class ControlerAjoutFournisseur extends AbstractAction{
 

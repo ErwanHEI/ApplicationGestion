@@ -252,7 +252,7 @@ public class ProduitDaoImpl implements ProduitDao{
 		         dateA.add(retval);
 		      }
 			stmt1.setString(2, dateA.get(0));
-			stmt1.setString(3, user.getNom());
+			stmt1.setString(3, user.getEmail());
 			stmt1.setString(4, produit.getNomProduit());
 			stmt1.setString(5, comment);
 			stmt1.execute();
@@ -289,7 +289,7 @@ public class ProduitDaoImpl implements ProduitDao{
 		         dateA.add(retval);
 		      }
 			stmt1.setString(2, dateA.get(0));
-			stmt1.setString(3, user.getNom());
+			stmt1.setString(3, user.getEmail());
 			stmt1.setString(4, produit.getNomProduit());
 			stmt1.setString(5, comment);
 			stmt1.execute();
@@ -467,7 +467,7 @@ public class ProduitDaoImpl implements ProduitDao{
 			try {
 				
 				Statement stm = bdd.getConnection().createStatement();
-				String rqt="SELECT * FROM produit JOIN stockage ON produit.idStockage=stockage.idStockage WHERE nomProduit LIKE '%"+mot+"'";
+				String rqt="SELECT * FROM produit JOIN stockage ON produit.idStockage=stockage.idStockage WHERE nomProduit LIKE '%"+mot+"%'";
 				ResultSet res=stm.executeQuery(rqt);
 				while (res.next()){
 					String name=res.getString("nomProduit");

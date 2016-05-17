@@ -91,7 +91,8 @@ public class AjoutVirementControleur implements ActionListener{
 				e.printStackTrace();
 			}
 			System.out.println("ajout ok");
-			
+			PanelBudget pan=new PanelBudget();
+			fen.changerPanelBudget(pan);
 			
 		}else{
 			System.out.println("erreur ok");

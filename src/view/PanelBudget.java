@@ -116,9 +116,9 @@ public class PanelBudget extends JPanel{
 ------------------------------------------------------------------------------------------------*/
 		
 		tableauBudget = new JTable(modeleListeBudget);
-		tableauBudget.getColumnModel().getColumn(6).setMaxWidth(0);
-		tableauBudget.getColumnModel().getColumn(6).setMinWidth(0);
-		tableauBudget.getColumnModel().getColumn(6).setPreferredWidth(0);
+		tableauBudget.getColumnModel().getColumn(5).setMaxWidth(0);
+		tableauBudget.getColumnModel().getColumn(5).setMinWidth(0);
+		tableauBudget.getColumnModel().getColumn(5).setPreferredWidth(0);
 		tableauBudget.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
 		tableauBudget.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, (int) (18*adaptx)));
 		tableauBudget.setRowHeight((int) (21*adaptx));
@@ -358,9 +358,9 @@ public class PanelBudget extends JPanel{
 ------------------------------------------------------------------------------------------------*/
 				
 		tableauJournalBudget = new JTable(modeleTableauJournalBudget);
-		tableauJournalBudget.getColumnModel().getColumn(6).setMaxWidth(0);
-		tableauJournalBudget.getColumnModel().getColumn(6).setMinWidth(0);
-		tableauJournalBudget.getColumnModel().getColumn(6).setPreferredWidth(0);
+		tableauJournalBudget.getColumnModel().getColumn(5).setMaxWidth(0);
+		tableauJournalBudget.getColumnModel().getColumn(5).setMinWidth(0);
+		tableauJournalBudget.getColumnModel().getColumn(5).setPreferredWidth(0);
 		tableauJournalBudget.setFont(new Font("Tahoma", Font.PLAIN, (int) (16*adaptx)));
 		tableauJournalBudget.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, (int) (18*adaptx)));
 		tableauJournalBudget.setRowHeight((int) (21*adaptx));

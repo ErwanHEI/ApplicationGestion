@@ -65,6 +65,8 @@ public class ControleurAjoutProduit implements ActionListener{
 				Stockage stockage=pan.getComboxBoxDynamiqueStockage().getBudgetSelect();
 				Produit pdt=new Produit(1,nom,categorie,prix,quantite, stockage,fournisseur,createur);
 				ProduitManager.getInstance().ajoutProduit(pdt);
+				PanelProduit pan=new PanelProduit();
+				fen.changerPanelStock(pan);
 			}else{
 				JOptionPane.showMessageDialog(null, "Vous n'etes pas autorisé à effectuer cette action", "ERREUR", 0);
 			}

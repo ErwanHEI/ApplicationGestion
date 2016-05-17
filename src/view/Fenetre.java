@@ -17,6 +17,7 @@ import controler.ChangementMdpControleur;
 import controler.ControlerAjoutStockage;
 import controler.ControleurAjoutProduit;
 import controler.ControleurAjoutVirementEvenement;
+import controler.ControleurEnvoiRecapitulatif;
 import controler.ControleurModificationProduit;
 import controler.ControleurProduitEvenement;
 import controler.ControleurRecherchePdt;
@@ -167,7 +168,7 @@ public void changerPanelEvenement(PanelEvenement pan){
 public void changerPanelRecap(Recapitulatif recap){
 	fen.invalidate();
 	fen.setContentPane(recap);
-	
+	recap.getBtnEnvoyerParMail().addActionListener(new ControleurEnvoiRecapitulatif(recap));
 	fen.validate();
 }
 

@@ -50,6 +50,8 @@ public class AjoutBudgetControler implements ActionListener{
 			Budget budget=new Budget(1,ref,nomB,montantp,0,crea);
 			BudgetManager.getInstance().ajoutBudget(budget);
 			System.out.println("ok ajout");
+			PanelBudget pan=new PanelBudget();
+			fen.changerPanelBudget(pan);
 		}else {
 			System.out.println("ok erreur");
 			//gestion erreur

@@ -90,7 +90,8 @@ public class FiltreDateControleur implements ActionListener{
 			}
 			
 			Recapitulatif recap=new Recapitulatif( tableQuantite,tableMontant);
-			
+			recap.setTableMontant(tableMontant);
+			recap.setTableQuantite(tableQuantite);
 			fen.changerPanelRecap(recap);
 			
 }

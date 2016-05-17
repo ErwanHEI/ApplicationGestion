@@ -16,7 +16,7 @@ public class ModeleTableauListeBudget extends AbstractTableModel{
 	private BudgetManager budgetManager = new BudgetManager();
     private List<Budget> listeBudget = new ArrayList<Budget>();
  
-    private final String[] entetes = {"Référence", "Nom", "Budget fixé", "Budget réel", "Restant à encaisser", "Solde réel", "Id Budget"};
+    private final String[] entetes = {"Référence", "Nom", "Budget fixé", "Budget utilisé", "Restant à encaisser", "Id Budget"};
 
     
     public ModeleTableauListeBudget() {
@@ -47,10 +47,8 @@ public class ModeleTableauListeBudget extends AbstractTableModel{
             case 3:
                 return listeBudget.get(rowIndex).getMontantUtilise();
             /*case 4:
-                return listeBudget.get(rowIndex).;
+            	return listeBudget.get(rowIndex).*/
             case 5:
-                return listeBudget.get(rowIndex).;*/
-            case 6:
                 return listeBudget.get(rowIndex).getIdBudget();
             default:
                 return null; //Ne devrait jamais arriver

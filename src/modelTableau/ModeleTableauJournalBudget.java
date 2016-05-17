@@ -13,7 +13,7 @@ public class ModeleTableauJournalBudget extends AbstractTableModel {
 		private VirementManager virementManager = new VirementManager();
 	    private List<Virement> listeJournalVirement = new ArrayList<Virement>();
 	 
-	    private final String[] entetes = {"Emetteur", "Date", "Nom budget", "Mouvement", "Nouveau solde", "Agent", "Id Virement"};
+	    private final String[] entetes = {"Emetteur", "Date", "Nom budget", "Mouvement", "Agent", "Id Virement"};
 	 
 	    public ModeleTableauJournalBudget() {
 	        super();
@@ -42,11 +42,10 @@ public class ModeleTableauJournalBudget extends AbstractTableModel {
 	                return listeJournalVirement.get(rowIndex).getBudgetAssocie().getNomBudget();
 	            case 3:
 	            	return listeJournalVirement.get(rowIndex).getMontant();
-	            //case 4:
-	              //  return listeJournalVirement.get(rowIndex);
+	            
+	            case 4:
+	            	return listeJournalVirement.get(rowIndex).getCreateur().getEmail();
 	            case 5:
-	            	return listeJournalVirement.get(rowIndex).getCreateur().getNom();
-	            case 6:
 	            	return listeJournalVirement.get(rowIndex).getIdVirement();
 	            default:
 	                return null; //Ne devrait jamais arriver
